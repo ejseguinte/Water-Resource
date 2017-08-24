@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEditorInternal;
-
+using UnityEditor;
 public class GameManager : MonoBehaviour {
 
 	public int maxTurns = 13;
