@@ -9,10 +9,11 @@ public class Fade : MonoBehaviour {
 	
 	private Image fadePanel;
 	private Color currentColor = Color.black;
-	
+
 	// Use this for initialization
 	void Start () {
 		fadePanel = GetComponent<Image>();
+
 	}
 	
 	// Update is called once per frame

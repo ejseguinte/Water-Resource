@@ -42,8 +42,8 @@ public class PlayerPrefsManager : MonoBehaviour {
 		}
 	}
 	
-	public static float GetDifficulty (){
-		return PlayerPrefs.GetFloat (DIFFICULTY_KEY);
+	public static int GetDifficulty (){
+		return Mathf.RoundToInt(PlayerPrefs.GetFloat (DIFFICULTY_KEY));
 	}
 	#endregion
 
