@@ -15,16 +15,16 @@ public class Difficulty : MonoBehaviour {
 	}
 
 	#region Happiness
-
+	//TODO Set all diffculties
 	public static float HappinessCoefficient(){
 		switch(PlayerPrefsManager.GetDifficulty()){
 			case 1:
 			case 2:
 			case 3:
 				return 1f;
-				break;
 			default:
-			Debug.LogError("Difficulty not set correctly: " + PlayerPrefsManager.GetDifficulty());
+				Debug.LogError("Difficulty not set correctly: " + PlayerPrefsManager.GetDifficulty());
+				return 0f;
 		}
 	}
 	#endregion
@@ -37,9 +37,9 @@ public class Difficulty : MonoBehaviour {
 			case 2:
 			case 3:
 				return 1f;
-				break;
 			default:
-			Debug.LogError("Difficulty not set correctly: " + PlayerPrefsManager.GetDifficulty());
+				Debug.LogError("Difficulty not set correctly: " + PlayerPrefsManager.GetDifficulty());
+				return 0f;
 		}
 	}
 	#endregion
@@ -52,9 +52,9 @@ public class Difficulty : MonoBehaviour {
 			case 2:
 			case 3:
 				return 1f;
-				break;
 			default:
-			Debug.LogError("Difficulty not set correctly: " + PlayerPrefsManager.GetDifficulty());
+				Debug.LogError("Difficulty not set correctly: " + PlayerPrefsManager.GetDifficulty());
+				return 0f;
 		}
 	}
 	#endregion
@@ -67,9 +67,9 @@ public class Difficulty : MonoBehaviour {
 			case 2:
 			case 3:
 				return 1.3f;
-				break;
 			default:
-			Debug.LogError("Difficulty not set correctly: " + PlayerPrefsManager.GetDifficulty());
+				Debug.LogError("Difficulty not set correctly: " + PlayerPrefsManager.GetDifficulty());
+				return 0f;
 		}
 	}
 	#endregion
@@ -82,9 +82,9 @@ public class Difficulty : MonoBehaviour {
 			case 2:
 			case 3:
 				return 1.3f;
-				break;
 			default:
-			Debug.LogError("Difficulty not set correctly: " + PlayerPrefsManager.GetDifficulty());
+				Debug.LogError("Difficulty not set correctly: " + PlayerPrefsManager.GetDifficulty());
+				return 0f;
 		}
 	}
 	#endregion

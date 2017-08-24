@@ -12,6 +12,7 @@ public class LevelManager : MonoBehaviour {
 			Invoke ("LoadNextLevel", autoLoadNextLevelAfter);
 		}
 	}
+
 	public void LoadLevel(string name){
 		Debug.Log ("New Level load: " + name);
 		SceneManager.LoadScene(name);
@@ -25,5 +26,7 @@ public class LevelManager : MonoBehaviour {
 	public void LoadNextLevel(){
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1, LoadSceneMode.Single);
 	}
+
+
 
 }
