@@ -89,4 +89,18 @@ public class Difficulty : MonoBehaviour {
 	}
 	#endregion
 
+	#region Water Estimate
+
+	public static float WaterEstimateCoefficient(){
+		switch(PlayerPrefsManager.GetDifficulty()){
+			case 1:
+			case 2:
+			case 3:
+				return 1f;
+			default:
+				Debug.LogError("Difficulty not set correctly: " + PlayerPrefsManager.GetDifficulty());
+				return 0f;
+		}
+	}
+	#endregion
 }

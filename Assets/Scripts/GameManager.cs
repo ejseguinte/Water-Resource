@@ -6,7 +6,8 @@ using UnityEngine.UI;
 using UnityEditor;
 public class GameManager : MonoBehaviour {
 
-	public int maxTurns = 13;
+	public static int maxTurns = 13;
+
 	public int turnCounter = 1;				
 	public LevelManager levelManager;
 	public GameObject gameScreen;
