@@ -16,20 +16,28 @@ public class MusicPlayer : MonoBehaviour {
 	}
 
 	void Awake () {
+		audiosSource = GetComponent<AudioSource>();
+		SetVolume(PlayerPrefsManager.GetMasterVolume()/100);
 		DontDestroyOnLoad(gameObject);
 		
 	}
 	
 	void Start (){
-		audiosSource = GetComponent<AudioSource>();
+		
 	}
 	
 	void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode){
+		print(scene.name);
 		AudioClip thisLevelMusic = levelMusicChangeArray[scene.buildIndex];
 		Debug.Log ("Playing clip:" + thisLevelMusic);
+		Debug.Log (audiosSource);
 		if(thisLevelMusic){
 			audiosSource.clip = thisLevelMusic;
-			audiosSource.loop = true;
+			if(scene.buildIndex == 0){
+				audiosSource.loop = false;
+			}else{
+				audiosSource.loop = true;
+			}
 			audiosSource.Play();
 			
 		}
