@@ -7,25 +7,35 @@ using UnityEditor;
 public class GameManager : MonoBehaviour {
 
 	public static int maxTurns = 13;
+	public static GameManager gameManager = null;
 
 	public int turnCounter = 1;				
 	public LevelManager levelManager;
 	public GameObject gameScreen;
-	public GameObject statScreen;
 
 	private float initialFixedTimeDeltaTime;
 	public GameState state; 				//TODO Make state private
 
 	public enum GameState {Pause, Allocate, Adjustment, End};
 
+	void Awake () {
+		Debug.Log ("Game Manager Awake " + GetInstanceID());
+		if(gameManager != null){
+			Destroy (gameObject);
+			Debug.Log ("Destoying duplicate Game Manager");
+		}else{
+			gameManager = this;
+		}
+		GameObject.DontDestroyOnLoad(gameObject);
+	}
+
 	// Use this for initialization
 	void Start () {
 		levelManager = GameObject.FindObjectOfType<LevelManager>();
 		gameScreen = GameObject.FindGameObjectWithTag("Main Game");
-		statScreen = GameObject.FindGameObjectWithTag("Stat Screen");
 		initialFixedTimeDeltaTime = Time.fixedDeltaTime;
 		state = GameState.Allocate;
-		statScreen.SetActive(false);
+		//statScreen.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -62,8 +72,8 @@ public class GameManager : MonoBehaviour {
 			default:
 				levelManager.LoadLevel("01a Start Menu");
 				break;
-			
 		}
+		Debug.Log(state);
 	}
 
 	private void EndAllocation(){
@@ -73,8 +83,7 @@ public class GameManager : MonoBehaviour {
 	private void EndAdjustment(){
 		turnCounter ++;
 		state = GameState.End;
-		gameScreen.SetActive(false);
-		statScreen.SetActive(true);
+		levelManager.LoadLevel("02b Game Report");
 	}
 
 	private void NextTurn(){
@@ -82,8 +91,7 @@ public class GameManager : MonoBehaviour {
 			levelManager.LoadLevel("03 Final Results");
 		}else{
 			state = GameState.Allocate;
-			gameScreen.SetActive(true);
-			statScreen.SetActive(false);
+			levelManager.LoadLevel("02a Game");
 		}
 	}
 	#endregion
