@@ -5,19 +5,27 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityEditor;
 public class GameManager : MonoBehaviour {
-
+	
+	#region Static
 	public static int maxTurns = 13;
 	public static GameManager gameManager = null;
+	#endregion
 
-	public int turnCounter = 1;				
-	public LevelManager levelManager;
-	public GameObject gameScreen;
+	#region Public Variables
+	public int turnCounter = 1;					
+	#endregion
 
+	#region Private Variables
 	private float initialFixedTimeDeltaTime;
-	public GameState state; 				//TODO Make state private
+	private LevelManager levelManager;
+	public GameState state;                 //TODO Make state private
+	#endregion
 
+	#region Enums
 	public enum GameState {Pause, Allocate, Adjustment, End};
+	#endregion
 
+	#region Unity Methods
 	void Awake () {
 		Debug.Log ("Game Manager Awake " + GetInstanceID());
 		if(gameManager != null){
@@ -30,18 +38,19 @@ public class GameManager : MonoBehaviour {
 	}
 
 	// Use this for initialization
-	void Start () {
+	void Start()
+	{
 		levelManager = GameObject.FindObjectOfType<LevelManager>();
-		gameScreen = GameObject.FindGameObjectWithTag("Main Game");
 		initialFixedTimeDeltaTime = Time.fixedDeltaTime;
 		state = GameState.Allocate;
 		//statScreen.SetActive(false);
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		
 	}
+	#endregion
 
 	#region State Control
 
