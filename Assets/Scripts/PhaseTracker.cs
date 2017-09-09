@@ -9,7 +9,7 @@ public class PhaseTracker : MonoBehaviour {
 	private Text myText;
 	// Use this for initialization
 	void Start () {
-		gameManager = GameObject.FindObjectOfType<GameManager>();
+		gameManager = GameManager.instance;
 		myText = GetComponent<Text>();
 		myText.text = gameManager.GetState();
 	}

@@ -35,7 +35,6 @@ public class Water : MonoBehaviour {
 	//TODO update to include Difficulty
 	//TODO update to use idx instead of 0
 	public void UpdateWater(int idx){
-		Debug.Log("hello");
 		actualWater = actualWaterArray[0];
 		estimatedWater = estimatedWaterArray[0];
 		estimatedWater = estimatedWater * Difficulty.WaterEstimateCoefficient();
