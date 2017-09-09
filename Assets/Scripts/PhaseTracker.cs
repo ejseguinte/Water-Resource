@@ -5,17 +5,17 @@ using UnityEngine.UI;
 
 public class PhaseTracker : MonoBehaviour {
 
-	private GameManager gameManager;
+	public GameManager gameManager;
 	private Text myText;
 	// Use this for initialization
 	void Start () {
-		gameManager = GameManager.instance;
 		myText = GetComponent<Text>();
 		myText.text = gameManager.GetState();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		Debug.Log(gameManager.GetState());
 		myText.text = gameManager.GetState();
 	}
 }

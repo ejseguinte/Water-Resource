@@ -5,12 +5,11 @@ using UnityEngine;
 
 public class TurnCounter : MonoBehaviour {
 
-	private GameManager gameManger;
+	public GameManager gameManger;
 	private Text myText;
 
 	// Use this for initialization
 	void Start () {
-		gameManger = GameObject.FindObjectOfType<GameManager>();
 		myText = GetComponent<Text>();
 		myText.text = gameManger.turnCounter.ToString();
 	}

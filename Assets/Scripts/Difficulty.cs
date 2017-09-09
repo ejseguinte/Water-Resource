@@ -26,6 +26,7 @@ public class Difficulty : MonoBehaviour {
 				Debug.LogError("Difficulty not set correctly: " + PlayerPrefsManager.GetDifficulty());
 				return 0f;
 		}
+		
 	}
 	#endregion
 

@@ -7,7 +7,7 @@ using UnityEditor;
 public class GameManager : MonoBehaviour {
 
 	public static int maxTurns = 13;
-	public static GameManager instance = null;
+	public static GameManager gameManager = null;
 
 	public int turnCounter = 1;				
 	public LevelManager levelManager;
@@ -20,11 +20,11 @@ public class GameManager : MonoBehaviour {
 
 	void Awake () {
 		Debug.Log ("Game Manager Awake " + GetInstanceID());
-		if(instance != null){
+		if(gameManager != null){
 			Destroy (gameObject);
 			Debug.Log ("Destoying duplicate Game Manager");
 		}else{
-			instance = this;
+			gameManager = this;
 		}
 		GameObject.DontDestroyOnLoad(gameObject);
 	}
@@ -59,7 +59,6 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void NextState(){
-		Debug.Log(state);
 		switch(state){
 			case GameState.Allocate:
 				EndAllocation();
@@ -73,8 +72,8 @@ public class GameManager : MonoBehaviour {
 			default:
 				levelManager.LoadLevel("01a Start Menu");
 				break;
-			
 		}
+		Debug.Log(state);
 	}
 
 	private void EndAllocation(){
