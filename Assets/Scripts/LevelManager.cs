@@ -7,17 +7,6 @@ public class LevelManager : MonoBehaviour {
 
 	public float autoLoadNextLevelAfter = 3f;
 
-	void Awake () {
-		Debug.Log ("Level Manager Awake " + GetInstanceID());
-		if(instance != null){
-			Destroy (gameObject);
-			Debug.Log ("Destoying duplicate Level Manager");
-		}else{
-			instance = this;
-		}
-		GameObject.DontDestroyOnLoad(gameObject);
-	}
-
     void Start(){
 		if(autoLoadNextLevelAfter <= 0){
 			Debug.Log("Auto Load Varible set to <= 0. Will not automatically proceed to next Scene in Build Order.");

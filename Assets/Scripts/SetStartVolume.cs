@@ -8,8 +8,9 @@ public class SetStartVolume : MonoBehaviour {
 	void Awake(){
 		if(GameObject.FindObjectOfType<MusicPlayer>()){
 			musicManager = GameObject.FindObjectOfType<MusicPlayer>();
+			musicManager.SetVolume( PlayerPrefsManager.GetMasterVolume()/100f);
 		}
-		musicManager.SetVolume( PlayerPrefsManager.GetMasterVolume()/100f);
+		
 	}
 
 	// Use this for initialization
