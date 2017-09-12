@@ -26,6 +26,12 @@ public class GameManager : MonoBehaviour
 	private int money = 1000;
 	private int population = 1000;
 	private int farms = 1000;
+
+	//Water
+	private int totalWater = 1000;
+	private int expendedWater = 0;
+	private int remainingWater = 1000;
+	private int estimateWater = 0;
 	#endregion
 
 	#region Enums
@@ -236,6 +242,58 @@ public class GameManager : MonoBehaviour
 		set
 		{
 			turnCounter = value;
+		}
+	}
+
+	public int TotalWater
+	{
+		get
+		{
+			return totalWater;
+		}
+
+		set
+		{
+			totalWater = value;
+		}
+	}
+
+	public int ExpendedWater
+	{
+		get
+		{
+			return expendedWater;
+		}
+
+		set
+		{
+			expendedWater = value;
+		}
+	}
+
+	public int RemainingWater
+	{
+		get
+		{
+			return remainingWater;
+		}
+
+		set
+		{
+			remainingWater = value;
+		}
+	}
+
+	public int EstimateWater
+	{
+		get
+		{
+			return estimateWater;
+		}
+
+		set
+		{
+			estimateWater = value;
 		}
 	}
 	#endregion
