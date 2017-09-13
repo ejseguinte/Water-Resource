@@ -48,7 +48,7 @@ public class OptionsController : MonoBehaviour {
 			musicManager.SetVolume(volume.value);
 		}
 		
-		levelManager.LoadLevel("01a Start Menu");
+		levelManager.LoadPreviousLevel();
 		
 	}
 }

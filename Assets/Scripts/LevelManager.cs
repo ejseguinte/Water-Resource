@@ -4,7 +4,7 @@ using System.Collections;
 
 public class LevelManager : MonoBehaviour {
 	public static LevelManager instance = null;
-
+	public static string previousScreen;
 	public float autoLoadNextLevelAfter = 3f;
 
     void Start(){
@@ -17,6 +17,7 @@ public class LevelManager : MonoBehaviour {
 
 	public void LoadLevel(string name){
 		Debug.Log ("New Level load: " + name);
+		previousScreen = SceneManager.GetActiveScene().name;
 		SceneManager.LoadScene(name);
 	}
 
@@ -28,6 +29,18 @@ public class LevelManager : MonoBehaviour {
 	public void LoadNextLevel(){
 		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1, LoadSceneMode.Single);
 	}
+	
+	public void LoadPreviousLevel(){
+		Debug.Log ("New Level load: " + name);
+		string previousLevelName = previousScreen;
+		if (previousLevelName == null){
+			previousLevelName = "01a Start Menu";
+		}
+		previousScreen = SceneManager.GetActiveScene().name;
+		SceneManager.LoadScene(previousLevelName);
+	}
+	
+	
 
 
 
