@@ -39,7 +39,8 @@ public class LevelManager : MonoBehaviour {
 	public void LoadPreviousLevel(){
 		Debug.Log ("New Level load: " + name);
 		string previousLevelName = previousScreen;
-		if (previousLevelName == null){
+		Debug.Log(previousLevelName);
+		if (previousLevelName == ""){
 			previousLevelName = "01a Start Menu";
 		}
 		previousScreen = SceneManager.GetActiveScene().name;

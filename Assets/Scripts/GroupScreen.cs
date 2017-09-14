@@ -9,7 +9,7 @@ public class GroupScreen : MonoBehaviour {
 	public GameObject content;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		Group group = GroupData.GetItem(LevelManager.groupAttribute);
 		if (group == null)
 		{
