@@ -3,13 +3,18 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class LevelManager : MonoBehaviour {
-	public static LevelManager instance = null;
 	public static string previousScreen;
 	public float autoLoadNextLevelAfter = 3f;
 
     void Start(){
 		if(autoLoadNextLevelAfter <= 0){
 			Debug.Log("Auto Load Varible set to <= 0. Will not automatically proceed to next Scene in Build Order.");
+			if(SceneManager.GetActiveScene().buildIndex == 0){
+				WaterData.LoadItemsData();
+				EventData.LoadItemsData();
+				PolicyData.LoadItemsData();
+				GroupData.LoadItemsData();
+			}
 		}else {
 			Invoke ("LoadNextLevel", autoLoadNextLevelAfter);
 		}
