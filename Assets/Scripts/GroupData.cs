@@ -7,7 +7,13 @@ public class GroupData{
 	private static Dictionary<string, Group> _table; //Key  is Year and Month ie 201701: January of 2017
 
 	public static void LoadItemsData(){
+		Group newGroup = new Group(){
+			nameID = "TEST",
+			guiName = "Test",
+			description = "test"
+		};
 
+		_table.Add(newGroup.nameID, newGroup);
 	}
 
 	public static Group GetItem(string name){
