@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class GroupData{
 
-	private static Dictionary<string, Group> _table; //Key  is Year and Month ie 201701: January of 2017
+	private static Dictionary<string, Group> _table = new Dictionary<string, Group>(); //Key  is Year and Month ie 201701: January of 2017
 
 	public static void LoadItemsData(){
 		Group newGroup = new Group(){
@@ -17,7 +18,11 @@ public class GroupData{
 	}
 
 	public static Group GetItem(string name){
+		if (_table.Count == 0){
+			LoadItemsData();
+		}
 		Group temp = null;
+		Debug.Log(name);
 		if(_table.TryGetValue(name, out temp)){
 			return temp;
 		}else{
