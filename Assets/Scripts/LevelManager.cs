@@ -48,7 +48,7 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	public void LoadGroupLevel(string name){
-		Debug.Log ("New Level load: " + name);
+		Debug.Log ("Loading Group Screen: " + name);
 		previousScreen = SceneManager.GetActiveScene().name;
 		groupAttribute = name;
 		SceneManager.LoadScene("02c Game Sliders");
