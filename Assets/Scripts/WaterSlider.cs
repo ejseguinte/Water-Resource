@@ -16,6 +16,7 @@ public class WaterSlider : MonoBehaviour {
 	public WaterDisplay display;
 	public Text waterDescription;
 	public Text maxWater;
+	public Text waterAmount;
 	
 	private GameManager gameManager;
 	private LevelManager levelManager;
@@ -63,13 +64,21 @@ public class WaterSlider : MonoBehaviour {
 		gameManager.RemainingWater = gameManager.TotalWater - gameManager.ExpendedWater;
 		
 		maxWater.text = water.waterNeeded.ToString() + "M";
-		waterDescription.text = "Minimum water needed: " + water.waterRecommended.ToString("f0") + "M\n" + "Total water needed: "  + water.waterNeeded.ToString("f0") + "M";
+		waterDescription.text = "Minimum water needed: " + water.waterRecommended.ToString() + "M\n" + "Total water needed: "  + water.waterNeeded.ToString() + "M";
 		offset = water.waterRecommended / water.waterNeeded;
 		if (water.waterGiven < 0)
 		{
 			waterSlider.value = offset;
+			waterAmount.text = water.waterRecommended.ToString()+"M";
 		}else{
 			waterSlider.value = water.waterGiven / water.waterNeeded;
+			waterAmount.text = water.waterGiven.ToString()+"M";
+			if (Mathf.RoundToInt(waterSlider.value * water.waterNeeded) < water.waterRecommended)
+			{
+				waterAmount.color = Color.red;
+			}else{
+				waterAmount.color = Color.black;
+			}
 		}
 		
 	}
@@ -85,14 +94,22 @@ public class WaterSlider : MonoBehaviour {
 		effect2.value = (waterSlider.value - offset) * group.effectMultiplier2;
 		effect3.value = (waterSlider.value - offset) * group.effectMultiplier3;
 		effect4.value = (waterSlider.value - offset) * group.effectMultiplier4;
+		waterAmount.text = Mathf.RoundToInt(waterSlider.value * water.waterNeeded).ToString()+"M";
+		if (Mathf.RoundToInt(waterSlider.value * water.waterNeeded) < water.waterRecommended)
+		{
+			waterAmount.color = Color.red;
+		}
+		else
+		{
+			waterAmount.color = Color.black;
+		}
 	}
 
 	public void Save()
 	{
-		water.waterGiven = waterSlider.value * water.waterNeeded;
-		gameManager.ExpendedWater += water.waterGiven;
-		gameManager.RemainingWater = gameManager.TotalWater - gameManager.ExpendedWater;
-		Debug.Log(gameManager.ExpendedWater);
+		water.waterGiven = Mathf.RoundToInt(waterSlider.value * water.waterNeeded);
+		gameManager.ExpendedWater += Mathf.RoundToInt(water.waterGiven);
+		gameManager.RemainingWater = Mathf.RoundToInt(gameManager.TotalWater - gameManager.ExpendedWater);
 		levelManager.LoadPreviousLevel();
 	}
 
