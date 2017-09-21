@@ -20,8 +20,6 @@ public class Sliders : MonoBehaviour
 	void Update()
 	{
 		UpdateSliderSense();
-		Debug.Log(_sliderSize);
-		_slider.fillRect.localPosition = new Vector3(0, 0, 0);
 	}
 	public void UpdateSliderSense()
 	{
