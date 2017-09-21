@@ -11,6 +11,7 @@ public class WaterDisplay : MonoBehaviour {
 	public Text waterExpenditureValue;
 	public Text waterRemainingValue;
 	public Text waterEstimateValue;
+	
 	#endregion
 
 	#region Private Variables
@@ -47,7 +48,7 @@ public class WaterDisplay : MonoBehaviour {
 	}
 	#endregion
 
-	public void UpdateWaterUsed(float amount){ //TODO convert
+	public void UpdateWaterUsed(float amount){ 
 		waterUsed = gameManager.ExpendedWater + amount;
 		waterUsed = Mathf.RoundToInt(waterUsed);
 		waterLeft = gameManager.TotalWater - waterUsed;

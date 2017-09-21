@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
 	#endregion
 
 	#region Enums
-	public enum GameState { Allocate, Adjustment, End, Pause };
+	public enum GameState { Allocate, Event, End, Pause };
 	#endregion
 
 	#region Unity Methods
@@ -95,8 +95,8 @@ public class GameManager : MonoBehaviour
 		{
 			case GameState.Allocate:
 				return "Allocation";
-			case GameState.Adjustment:
-				return "Adjustment";
+			case GameState.Event:
+				return "Event";
 			case GameState.End:
 				return "Results";
 			default:
@@ -113,8 +113,8 @@ public class GameManager : MonoBehaviour
 				case GameState.Allocate:
 					EndAllocation();
 					break;
-				case GameState.Adjustment:
-					EndAdjustment();
+				case GameState.Event:
+					EndEvent();
 					break;
 				case GameState.End:
 					NextTurn();
@@ -129,10 +129,10 @@ public class GameManager : MonoBehaviour
 
 	private void EndAllocation()
 	{
-		state = GameState.Adjustment;
+		state = GameState.Event;
 	}
 
-	private void EndAdjustment()
+	private void EndEvent()
 	{
 		state = GameState.End;
 		levelManager = GameObject.FindObjectOfType<LevelManager>() as LevelManager;
@@ -275,7 +275,7 @@ public class GameManager : MonoBehaviour
 		get
 		{
 			
-			return Mathf.RoundToInt(expendedWater);
+			return expendedWater;
 		}
 
 		set
@@ -328,16 +328,16 @@ public class GameManager : MonoBehaviour
 			GroupWater temp = null;
 			if (_table.TryGetValue(key, out temp))
 			{
-				temp.waterRecommended = totalWater * GroupData.GetItem(key).recommendedWater;
-				temp.waterNeeded = totalWater * GroupData.GetItem(key).totalWater;
+				temp.waterRecommended = Mathf.RoundToInt(totalWater * GroupData.GetItem(key).recommendedWater);
+				temp.waterNeeded = Mathf.RoundToInt(totalWater * GroupData.GetItem(key).totalWater);
 				temp.waterGiven = -1f;
 			}
 			else
 			{
 				temp = new GroupWater()
 				{
-					waterRecommended = totalWater * GroupData.GetItem(key).recommendedWater,
-					waterNeeded = totalWater * GroupData.GetItem(key).totalWater,
+					waterRecommended = Mathf.RoundToInt(totalWater * GroupData.GetItem(key).recommendedWater),
+					waterNeeded = Mathf.RoundToInt(totalWater * GroupData.GetItem(key).totalWater),
 					waterGiven = -1f
 				};
 				_table.Add(key, temp);
@@ -345,6 +345,7 @@ public class GameManager : MonoBehaviour
 		}
 		expendedWater = 0;	//TODO Load next months data
 		remainingWater = totalWater;
+		remainingWater = Mathf.RoundToInt(remainingWater);
 	}
 
 	bool CheckWaterAllocation()
@@ -365,6 +366,11 @@ public class GameManager : MonoBehaviour
 			{
 				Debug.LogError("Groups not loaded properly. Missing: " + key);
 			}
+		}
+		if (remainingWater < 0)
+		{
+			Debug.Log("Too much water has been allocated.");
+			return false;
 		}
 		return true;
 	}
