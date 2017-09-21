@@ -49,7 +49,9 @@ public class WaterDisplay : MonoBehaviour {
 
 	public void UpdateWaterUsed(float amount){ //TODO convert
 		waterUsed = gameManager.ExpendedWater + amount;
+		waterUsed = Mathf.RoundToInt(waterUsed);
 		waterLeft = gameManager.TotalWater - waterUsed;
+		waterLeft = Mathf.RoundToInt(waterLeft);
 	}
 	
 	

@@ -63,7 +63,7 @@ public class WaterSlider : MonoBehaviour {
 		gameManager.RemainingWater = gameManager.TotalWater - gameManager.ExpendedWater;
 		
 		maxWater.text = water.waterNeeded.ToString() + "M";
-		waterDescription.text = "Minimum water needed: " + water.waterRecommended.ToString() + "M\n" + "Total water needed: "  + water.waterNeeded.ToString() + "M";
+		waterDescription.text = "Minimum water needed: " + water.waterRecommended.ToString("f0") + "M\n" + "Total water needed: "  + water.waterNeeded.ToString("f0") + "M";
 		offset = water.waterRecommended / water.waterNeeded;
 		if (water.waterGiven < 0)
 		{

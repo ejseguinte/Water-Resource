@@ -149,6 +149,7 @@ public class GameManager : MonoBehaviour
 		else
 		{
 			turnCounter++;
+			LoadWaterData();
 			state = GameState.Allocate;
 			levelManager = GameObject.FindObjectOfType<LevelManager>() as LevelManager;
 			levelManager.LoadLevel("02a Game");
@@ -273,7 +274,8 @@ public class GameManager : MonoBehaviour
 	{
 		get
 		{
-			return expendedWater;
+			
+			return Mathf.RoundToInt(expendedWater);
 		}
 
 		set
@@ -341,12 +343,14 @@ public class GameManager : MonoBehaviour
 				_table.Add(key, temp);
 			}
 		}
+		expendedWater = 0;	//TODO Load next months data
+		remainingWater = totalWater;
 	}
 
 	bool CheckWaterAllocation()
 	{
 		foreach (string key in groups)
-		{	
+		{
 			GroupWater temp = null;
 			if (_table.TryGetValue(key, out temp))
 			{
@@ -354,16 +358,18 @@ public class GameManager : MonoBehaviour
 				{
 					Debug.Log("Not all Groups have been Allocated Water");
 					return false;
-					
+
 				}
 			}
 			else
 			{
 				Debug.LogError("Groups not loaded properly. Missing: " + key);
-			}	
+			}
 		}
 		return true;
 	}
+	
+	
 	#endregion	
 }
 
