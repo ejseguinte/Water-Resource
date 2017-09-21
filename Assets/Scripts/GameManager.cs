@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
 	private LevelManager levelManager;
 	private float initialFixedTimeDeltaTime;
 	private GameState state = GameState.Allocate;
+	
+	//Resources
 	private static int food = 1000;
 	private static int happiness = 100;
 	private static int money = 1000;
@@ -29,15 +31,16 @@ public class GameManager : MonoBehaviour
 	private static int farms = 1000;
 
 	//Water
-	private static float totalWater = 1000;
-	private static float expendedWater = 0;
-	private static float remainingWater = 1000;
-	private static float estimateWater = 0;
+	private static float[] actualWaterArray;
+	private static float[] estimatedWaterArray;
+	private static float totalWater;
+	private static float expendedWater;
+	private static float remainingWater;
+	private static float estimateWater;
 
 	//Group Water Needs
 	private static Array groups;
 	private static Dictionary<string, GroupWater> _table = new Dictionary<string, GroupWater>();
-	private int group1;
 	#endregion
 
 	#region Enums
@@ -72,10 +75,16 @@ public class GameManager : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
+		actualWaterArray = new float[maxTurns];
+		estimatedWaterArray = new float[maxTurns];
 		initialFixedTimeDeltaTime = Time.fixedDeltaTime;
 		groups = GroupData.GetKeys();
-		LoadWaterData();
-		helper.text = " ";
+		LoadWater();			//Loads total water data
+		UpdateWater(turnCounter-1);
+		LoadWaterData(); 		//Loads water Data for Groups
+		
+		
+		//helper.text = " ";
 
 	}
 
@@ -84,7 +93,6 @@ public class GameManager : MonoBehaviour
 	{
 
 	}
-
 	#endregion
 
 	#region State Control
@@ -149,6 +157,7 @@ public class GameManager : MonoBehaviour
 		else
 		{
 			turnCounter++;
+			UpdateWater(turnCounter-1);
 			LoadWaterData();
 			state = GameState.Allocate;
 			levelManager = GameObject.FindObjectOfType<LevelManager>() as LevelManager;
@@ -173,6 +182,9 @@ public class GameManager : MonoBehaviour
 	#endregion
 
 	#region Resource Management
+	/*
+	*	Hold all publicly availble functions.
+	*/
 	public int Food
 	{
 		get
@@ -261,12 +273,12 @@ public class GameManager : MonoBehaviour
 	{
 		get
 		{
-			return totalWater;
+			return Mathf.RoundToInt(totalWater);
 		}
 
 		set
 		{
-			totalWater = value;
+			totalWater = Mathf.RoundToInt(value);
 		}
 	}
 
@@ -275,12 +287,12 @@ public class GameManager : MonoBehaviour
 		get
 		{
 			
-			return expendedWater;
+			return Mathf.RoundToInt(expendedWater);
 		}
 
 		set
 		{
-			expendedWater = value;
+			expendedWater = Mathf.RoundToInt(value);
 		}
 	}
 
@@ -288,12 +300,12 @@ public class GameManager : MonoBehaviour
 	{
 		get
 		{
-			return remainingWater;
+			return Mathf.RoundToInt(remainingWater);
 		}
 
 		set
 		{
-			remainingWater = value;
+			remainingWater = Mathf.RoundToInt(value);
 		}
 	}
 
@@ -301,17 +313,35 @@ public class GameManager : MonoBehaviour
 	{
 		get
 		{
-			return estimateWater;
+			return Mathf.RoundToInt(estimateWater);
 		}
 
 		set
 		{
-			estimateWater = value;
+			estimateWater = Mathf.RoundToInt(value);
 		}
 	}
 	#endregion
 
 	#region Water Need Equations
+	//TODO Update Load Water to load from file
+	private void LoadWater(){
+		int year = PlayerPrefsManager.GetYear();
+		actualWaterArray[0] = 1000f;
+		estimatedWaterArray[0] = 1000f;
+	}
+
+	//TODO update to include Difficulty
+	//TODO update to use idx instead of 0
+	public void UpdateWater(int idx){
+		TotalWater = actualWaterArray[0];
+		EstimateWater = estimatedWaterArray[0]* Difficulty.WaterEstimateCoefficient();
+		ExpendedWater = 0;	
+		RemainingWater = Mathf.RoundToInt(totalWater);
+	}
+	/*
+	*	Used to pull data from _table that holds water information
+	*/
 	public static GroupWater GetItem(string name){
 		GroupWater temp = null;
 		if(_table.TryGetValue(name, out temp)){
@@ -321,6 +351,12 @@ public class GameManager : MonoBehaviour
 		}
 
 	}
+	
+	/*
+	*	Either creates GroupWater entries in _table or edits the currents ones with update information.
+	*	Also resets expendedWater to 0 and sets remainingWater to totalWater
+	* 	waterGiven = -1f is used to see if the group has been given any water
+	*/
 	void LoadWaterData()
 	{
 		foreach (string key in groups)
@@ -343,11 +379,11 @@ public class GameManager : MonoBehaviour
 				_table.Add(key, temp);
 			}
 		}
-		expendedWater = 0;	//TODO Load next months data
-		remainingWater = totalWater;
-		remainingWater = Mathf.RoundToInt(remainingWater);
 	}
 
+	/*
+	*	Used to check to if water has been allocated to all groups and checks to see if too much water has been spent
+	*/
 	bool CheckWaterAllocation()
 	{
 		foreach (string key in groups)
@@ -374,16 +410,14 @@ public class GameManager : MonoBehaviour
 		}
 		return true;
 	}
-	
-	
 	#endregion	
 }
 
 [System.Serializable]
 public class GroupWater
 {
-	public float waterRecommended;
-	public float waterNeeded;
-	public float waterGiven;
+	public float waterRecommended; 	//Minimum water needed
+	public float waterNeeded;		//Max amount of water needed
+	public float waterGiven;		//Water given to group
 
 }

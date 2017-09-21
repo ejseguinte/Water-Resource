@@ -29,7 +29,6 @@ public class WaterDisplay : MonoBehaviour {
 		waterReserve = gameManager.TotalWater;
 		waterUsed = gameManager.ExpendedWater;
 		waterLeft = gameManager.RemainingWater;
-		Debug.Log(gameManager.ExpendedWater);
 		waterReserveValue.text = gameManager.TotalWater.ToString()+"M";
 		waterExpenditureValue.text = gameManager.ExpendedWater.ToString()+"M";
 		waterRemainingValue.text = gameManager.RemainingWater.ToString()+"M";
