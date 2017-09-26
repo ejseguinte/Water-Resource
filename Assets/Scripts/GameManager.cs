@@ -115,7 +115,7 @@ public class GameManager : MonoBehaviour
 
 	public void NextState()
 	{
-		if(CheckWaterAllocation()){
+		if(CheckAllWaterAllocation()){
 			switch (state)
 			{
 				case GameState.Allocate:
@@ -323,7 +323,7 @@ public class GameManager : MonoBehaviour
 	}
 	#endregion
 
-	#region Water Need Equations
+	#region Water Need Functions
 	//TODO Update Load Water to load from file
 	private void LoadWater(){
 		int year = PlayerPrefsManager.GetYear();
@@ -384,29 +384,39 @@ public class GameManager : MonoBehaviour
 	/*
 	*	Used to check to if water has been allocated to all groups and checks to see if too much water has been spent
 	*/
-	bool CheckWaterAllocation()
+	bool CheckAllWaterAllocation()
 	{
 		foreach (string key in groups)
 		{
-			GroupWater temp = null;
-			if (_table.TryGetValue(key, out temp))
+			if (!CheckWaterAllocation(key))
 			{
-				if (temp.waterGiven < 0f)
-				{
-					Debug.Log("Not all Groups have been Allocated Water");
-					return false;
-
-				}
-			}
-			else
-			{
-				Debug.LogError("Groups not loaded properly. Missing: " + key);
+				Debug.Log("Not all Groups have been Allocated Water");
+				return false;
 			}
 		}
 		if (remainingWater < 0)
 		{
 			Debug.Log("Too much water has been allocated.");
 			return false;
+		}
+		return true;
+	}
+
+	public bool CheckWaterAllocation(string key)
+	{
+		GroupWater temp = null;
+		if (_table.TryGetValue(key, out temp))
+		{
+			if (temp.waterGiven < 0f)
+			{
+				Debug.Log(key + " has not been Allocated Water");
+				return false;
+
+			}
+		}
+		else
+		{
+			Debug.LogError("Groups not loaded properly. Missing: " + key);
 		}
 		return true;
 	}
