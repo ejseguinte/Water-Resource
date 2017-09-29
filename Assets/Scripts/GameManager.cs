@@ -604,10 +604,10 @@ public class GameManager : MonoBehaviour
 	private static void ResetResources()
 	{
 		FoodMultiplier 				= 1;
-		HappinessMultiplier 		= 1;
+		HappinessMultiplier 		= Difficulty.HappinessCoefficient();
 		MoneyMultiplier	 			= 1;
 		PopulationMultiplier 		= Difficulty.PopulationGrowthCoefficient();
-		FarmsMultiplier 			= 1;
+		FarmsMultiplier 			= 1.1f;
 
 		FoodEffect 					= 0;
 		HappinessEffect 			= 0;
@@ -620,10 +620,14 @@ public class GameManager : MonoBehaviour
 	//Called after ResourceAfterEffects
 	private static void UpdateResources()
 	{
-		happiness *= HappinessMultiplier;
-		money *= MoneyMultiplier;
-		population *= PopulationMultiplier;
-		farms *= FarmsMultiplier;
+		//if (happiness == 0) happiness = 1;
+		happiness *= happinessMultiplier;
+		//if (money == 0) money = 1;
+		money *= moneyMultiplier;
+		//if (population == 0) population = 1;
+		population *= populationMultiplier;
+		//if (farms == 0) farms = 1;
+		farms *= farmsMultiplier;
 	}
 
 	private static void ResourceBeforeEffects()
@@ -639,15 +643,12 @@ public class GameManager : MonoBehaviour
 
 	private static void ResourceAfterEffects()
 	{
-		food += Farms * Difficulty.FoodProductionCoefficient() * foodMultiplier + foodEffect;
-		happiness += HappinessEffect;
-		if (happiness == 0) happiness = 1;
-		money += MoneyEffect;
-		if (money == 0) money = 1;
-		population += PopulationEffect;
-		if (population == 0) population = 1;
-		farms += FarmsEffect;
-		if (farms == 0) farms = 1;
+		food += farms * Difficulty.FoodProductionCoefficient() * foodMultiplier + foodEffect;
+		happiness += happinessEffect;
+		money += moneyEffect;
+		population += populationEffect;
+		farms += farmsEffect;
+		
 	}
 
 	private static void NotEnoughFood()

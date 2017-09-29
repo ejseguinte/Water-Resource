@@ -14,19 +14,37 @@ public class ResourceResults : MonoBehaviour {
 	void Start () {
 		if(happinessValue!= null)
 			happinessValue.text = GetHappiness().ToString() + "%";
+		setColor(happinessValue, GetHappiness());
 		if(foodValue!= null)
 			foodValue.text = GetFood().ToString() + "";
+		setColor(foodValue, GetFood());
 		if(moneyValue!= null)
 			moneyValue.text = GetMoney().ToString() + "M";
+		setColor(moneyValue, GetMoney());
 		if(populationValue!= null)
 			populationValue.text = GetPopulation().ToString() + "M";
+		setColor(populationValue, GetPopulation());
 		if(farmsValue!= null)
 			farmsValue.text = GetFarms().ToString() + "M";
+		setColor(farmsValue, GetHappiness());
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
+	}
+
+	void setColor(Text field, float val)
+	{
+		if (val < 0)
+		{
+			field.color = Color.red;
+		}
+		else
+		{
+			field.color = Color.green;
+		}
+
 	}
 
 	float GetHappiness()
@@ -38,8 +56,12 @@ public class ResourceResults : MonoBehaviour {
 
 	float GetFood()
 	{
+		Debug.Log("Farms: "+ GameManager.Farms);
+		Debug.Log("Food Production: "+ Difficulty.FoodProductionCoefficient());
+		Debug.Log("Food Multiplier: "+ GameManager.FoodMultiplier);
+		Debug.Log("Food Effect: "+ GameManager.FoodEffect);
+		Debug.Log("Food: "+ GameManager.Food);
 		float val = GameManager.Farms * Difficulty.FoodProductionCoefficient() * GameManager.FoodMultiplier + GameManager.FoodEffect;
-		val -= GameManager.Food;
 		return Mathf.RoundToInt(val); 
 	}
 

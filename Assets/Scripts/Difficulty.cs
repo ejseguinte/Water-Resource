@@ -15,13 +15,14 @@ public class Difficulty : MonoBehaviour {
 	}
 
 	#region Happiness
-	//TODO Set all diffculties
 	public static float HappinessCoefficient(){
 		switch(PlayerPrefsManager.GetDifficulty()){
 			case 1:
+				return 1.01f;
 			case 2:
-			case 3:
 				return 1f;
+			case 3:
+				return .95f;
 			default:
 				Debug.LogError("Difficulty not set correctly: " + PlayerPrefsManager.GetDifficulty());
 				return 0f;

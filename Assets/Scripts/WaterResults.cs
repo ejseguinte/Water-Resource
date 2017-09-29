@@ -15,11 +15,25 @@ public class WaterResults : MonoBehaviour {
 		RemainingWater.text = GameManager.RemainingWater.ToString() + "M";
 		EstimatedWater.text = GameManager.EstimateWater.ToString() + "M";
 		ActualAmount.text = waterArray[GameManager.turnCounter].ToString() + "M";
+		setColor(ActualAmount, waterArray[GameManager.turnCounter], GameManager.EstimateWater);
 		TotalAmount.text = (waterArray[GameManager.turnCounter] + GameManager.RemainingWater).ToString() + "M";
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
+	}
+	
+	void setColor(Text field, float actualValue, float estimateValue)
+	{
+		if (actualValue < estimateValue)
+		{
+			field.color = Color.red;
+		}
+		else
+		{
+			field.color = Color.green;
+		}
+
 	}
 }
