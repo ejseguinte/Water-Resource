@@ -45,6 +45,7 @@ public class PlayerPrefsManager : MonoBehaviour {
 	public static int GetDifficulty (){
 		return Mathf.RoundToInt(PlayerPrefs.GetFloat (DIFFICULTY_KEY));
 	}
+	
 	#endregion
 
 	#region Year Picker

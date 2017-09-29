@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
 	#endregion
 
 	#region Public Variables
-	public int turnCounter = 1;
+	public static int turnCounter = 1;
 	#endregion
 
 	#region Private Variables
@@ -22,17 +22,27 @@ public class GameManager : MonoBehaviour
 	private LevelManager levelManager;
 	private float initialFixedTimeDeltaTime;
 	private GameState state = GameState.Allocate;
-	
+
 	//Resources
-	private static int food = 1000;
-	private static int happiness = 100;
-	private static int money = 1000;
-	private static int population = 1000;
-	private static int farms = 1000;
+	private static float food 					= 2000;
+	private static float happiness 				= 100;
+	private static float money 					= 100;
+	private static float population				= 40;
+	private static float farms 					= 40;
+	private static float foodMultiplier 		= 1.0f;
+	private static float happinessMultiplier 	= 1.0f;
+	private static float moneyMultiplier 		= 1.0f;
+	private static float populationMultiplier 	= 1.0f;
+	private static float farmsMultiplier 		= 0;
+	private static float foodEffect 			= 0;
+	private static float happinessEffect 		= 0;
+	private static float moneyEffect			= 0;
+	private static float populationEffect 		= 0;
+	private static float farmsEffect 			= 0;
+
 
 	//Water
 	private static float[] actualWaterArray;
-	private static float[] estimatedWaterArray;
 	private static float totalWater;
 	private static float expendedWater;
 	private static float remainingWater;
@@ -48,6 +58,11 @@ public class GameManager : MonoBehaviour
 	#endregion
 
 	#region Unity Methods
+	void OnEnable()
+	{
+		turnCounter = 1;
+	}
+
 	void Awake()
 	{
 		if (gameManager != null)
@@ -57,6 +72,7 @@ public class GameManager : MonoBehaviour
 		else
 		{
 			gameManager = this;
+			
 			GameObject.DontDestroyOnLoad(gameObject);
 		}
 		SceneManager.activeSceneChanged += DestroyOnMenuScreen;
@@ -76,14 +92,13 @@ public class GameManager : MonoBehaviour
 	void Start()
 	{
 		actualWaterArray = new float[maxTurns];
-		estimatedWaterArray = new float[maxTurns];
 		initialFixedTimeDeltaTime = Time.fixedDeltaTime;
 		groups = GroupData.GetKeys();
-		LoadWater();			//Loads total water data
-		UpdateWater(turnCounter-1);
-		LoadWaterData(); 		//Loads water Data for Groups
-		
-		
+		LoadWater();            //Loads total water data
+		UpdateWater(turnCounter - 1);
+		LoadWaterData();        //Loads water Data for Groups
+
+
 		//helper.text = " ";
 
 	}
@@ -115,7 +130,8 @@ public class GameManager : MonoBehaviour
 
 	public void NextState()
 	{
-		if(CheckAllWaterAllocation()){
+		if (CheckAllWaterAllocation())
+		{
 			switch (state)
 			{
 				case GameState.Allocate:
@@ -138,6 +154,7 @@ public class GameManager : MonoBehaviour
 	private void EndAllocation()
 	{
 		state = GameState.Event;
+		ResourceBeforeEffects();
 	}
 
 	private void EndEvent()
@@ -157,13 +174,20 @@ public class GameManager : MonoBehaviour
 		else
 		{
 			turnCounter++;
-			UpdateWater(turnCounter-1);
-			LoadWaterData();
+			
+			ResourceAfterEffects();
+			UpdateResources();
+			ResetResources();
+			
 			state = GameState.Allocate;
+			UpdateWater(turnCounter - 1);
+			LoadWaterData();
+			
 			levelManager = GameObject.FindObjectOfType<LevelManager>() as LevelManager;
 			levelManager.LoadLevel("02a Game");
 		}
 	}
+
 	#endregion
 
 	#region Pause Methods
@@ -181,29 +205,28 @@ public class GameManager : MonoBehaviour
 	}
 	#endregion
 
-	#region Resource Management
+	#region Resource Variables
 	/*
 	*	Hold all publicly availble functions.
 	*/
-	public int Food
+	public static float Food
 	{
 		get
 		{
-			return food;
+			return Mathf.RoundToInt(food);
 		}
 
 		set
 		{
 			food = value;
-			if (food < 0) food = 0;
 		}
 	}
 
-	public int Happiness
+	public static float Happiness
 	{
 		get
 		{
-			return happiness;
+			return Mathf.RoundToInt(happiness);
 		}
 
 		set
@@ -214,11 +237,11 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	public int Money
+	public static float Money
 	{
 		get
 		{
-			return money;
+			return Mathf.RoundToInt(money);
 		}
 
 		set
@@ -228,11 +251,11 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	public int Population
+	public static float Population
 	{
 		get
 		{
-			return population;
+			return Mathf.RoundToInt(population);
 		}
 
 		set
@@ -242,11 +265,11 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	public int Farms
+	public static float Farms
 	{
 		get
 		{
-			return farms;
+			return Mathf.RoundToInt(farms);
 		}
 
 		set
@@ -256,7 +279,7 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	public int TurnCounter
+	public static int TurnCounter
 	{
 		get
 		{
@@ -269,7 +292,7 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	public float TotalWater
+	public static float TotalWater
 	{
 		get
 		{
@@ -282,11 +305,11 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	public float ExpendedWater
+	public static float ExpendedWater
 	{
 		get
 		{
-			
+
 			return Mathf.RoundToInt(expendedWater);
 		}
 
@@ -296,7 +319,7 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	public float RemainingWater
+	public static float RemainingWater
 	{
 		get
 		{
@@ -309,7 +332,7 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	public float EstimateWater
+	public static float EstimateWater
 	{
 		get
 		{
@@ -321,37 +344,189 @@ public class GameManager : MonoBehaviour
 			estimateWater = Mathf.RoundToInt(value);
 		}
 	}
+
+	public static float FoodMultiplier
+	{
+		get
+		{
+			return foodMultiplier;
+		}
+
+		set
+		{
+			foodMultiplier = value;
+		}
+	}
+
+	public static float HappinessMultiplier
+	{
+		get
+		{
+			return happinessMultiplier;
+		}
+
+		set
+		{
+			happinessMultiplier = value;
+		}
+	}
+
+	public static float MoneyMultiplier
+	{
+		get
+		{
+			return moneyMultiplier;
+		}
+
+		set
+		{
+			moneyMultiplier = value;
+		}
+	}
+
+	public static float PopulationMultiplier
+	{
+		get
+		{
+			return populationMultiplier;
+		}
+
+		set
+		{
+			populationMultiplier = value;
+		}
+	}
+
+	public static float FarmsMultiplier
+	{
+		get
+		{
+			return farmsMultiplier;
+		}
+
+		set
+		{
+			farmsMultiplier = value;
+		}
+	}
+
+	public static float FoodEffect
+	{
+		get
+		{
+			return foodEffect;
+		}
+
+		set
+		{
+			foodEffect = value;
+		}
+	}
+
+	public static float HappinessEffect
+	{
+		get
+		{
+			return happinessEffect;
+		}
+
+		set
+		{
+			happinessEffect = value;
+		}
+	}
+
+	public static float MoneyEffect
+	{
+		get
+		{
+			return moneyEffect;
+		}
+
+		set
+		{
+			moneyEffect = value;
+		}
+	}
+
+	public static float PopulationEffect
+	{
+		get
+		{
+			return populationEffect;
+		}
+
+		set
+		{
+			populationEffect = value;
+		}
+	}
+
+	public static float FarmsEffect
+	{
+		get
+		{
+			return farmsEffect;
+		}
+
+		set
+		{
+			farmsEffect = value;
+		}
+	}
+
+	public static float[] ActualWaterArray
+	{
+		get
+		{
+			return actualWaterArray;
+		}
+
+		set
+		{
+			actualWaterArray = value;
+		}
+	}
 	#endregion
 
 	#region Water Need Functions
-	//TODO Update Load Water to load from file
-	private void LoadWater(){
+	private void LoadWater()
+	{
 		int year = PlayerPrefsManager.GetYear();
-		actualWaterArray[0] = 1000f;
-		estimatedWaterArray[0] = 1000f;
+		actualWaterArray = WaterData.GetItem("Test");
+		//estimatedWaterArray[0] = 1000f;
 	}
 
-	//TODO update to include Difficulty
-	//TODO update to use idx instead of 0
-	public void UpdateWater(int idx){
-		TotalWater = actualWaterArray[0];
-		EstimateWater = estimatedWaterArray[0]* Difficulty.WaterEstimateCoefficient();
-		ExpendedWater = 0;	
+	public void UpdateWater(int idx)
+	{
+		TotalWater = actualWaterArray[idx] + RemainingWater;
+		if (idx < 11)
+			EstimateWater = actualWaterArray[idx + 1] * Difficulty.WaterEstimateCoefficient();
+		else
+		{
+			EstimateWater = actualWaterArray[0] * Difficulty.WaterEstimateCoefficient();
+		}
+		EstimateWater = Mathf.RoundToInt(EstimateWater);
+		ExpendedWater = 0;
 		RemainingWater = Mathf.RoundToInt(totalWater);
 	}
 	/*
 	*	Used to pull data from _table that holds water information
 	*/
-	public static GroupWater GetItem(string name){
+	public static GroupWater GetItem(string name)
+	{
 		GroupWater temp = null;
-		if(_table.TryGetValue(name, out temp)){
+		if (_table.TryGetValue(name, out temp))
+		{
 			return temp;
-		}else{
+		}
+		else
+		{
 			return null;
 		}
 
 	}
-	
+
 	/*
 	*	Either creates GroupWater entries in _table or edits the currents ones with update information.
 	*	Also resets expendedWater to 0 and sets remainingWater to totalWater
@@ -360,7 +535,7 @@ public class GameManager : MonoBehaviour
 	void LoadWaterData()
 	{
 		foreach (string key in groups)
-		{	
+		{
 			GroupWater temp = null;
 			if (_table.TryGetValue(key, out temp))
 			{
@@ -377,6 +552,11 @@ public class GameManager : MonoBehaviour
 					waterGiven = -1f
 				};
 				_table.Add(key, temp);
+			}
+			if (temp.waterRecommended == 0)
+			{
+				temp.waterGiven = 0f;
+				temp.waterNeeded = TotalWater;
 			}
 		}
 	}
@@ -409,25 +589,86 @@ public class GameManager : MonoBehaviour
 		{
 			if (temp.waterGiven < 0f)
 			{
-				Debug.Log(key + " has not been Allocated Water");
+				//Debug.Log(key + " has not been Allocated Water");
 				return false;
 
 			}
 		}
 		else
 		{
-			Debug.LogError("Groups not loaded properly. Missing: " + key);
+			//Debug.LogError("Groups not loaded properly. Missing: " + key);
 		}
 		return true;
 	}
-	#endregion	
+	#endregion
+
+	#region Resource Management
+	private static void ResetResources()
+	{
+		FoodMultiplier 				= 1;
+		HappinessMultiplier 		= 1;
+		MoneyMultiplier	 			= 1;
+		PopulationMultiplier 		= Difficulty.PopulationGrowthCoefficient();
+		FarmsMultiplier 			= 1;
+
+		FoodEffect 					= 0;
+		HappinessEffect 			= 0;
+		MoneyEffect 				= 0;
+		PopulationEffect 			= 0;
+		FarmsEffect 				= 0;
+
+	}
+	
+	//Called after ResourceAfterEffects
+	private static void UpdateResources()
+	{
+		happiness *= HappinessMultiplier;
+		money *= MoneyMultiplier;
+		population *= PopulationMultiplier;
+		farms *= FarmsMultiplier;
+	}
+
+	private static void ResourceBeforeEffects()
+	{
+		food += (Population * Difficulty.FoodRequriedCoefficient()) * -1;
+		//Checks to see if there is enough food
+		if (food < 0)
+		{
+			NotEnoughFood();
+			food = 0;
+		}
+	}
+
+	private static void ResourceAfterEffects()
+	{
+		food += Farms * Difficulty.FoodProductionCoefficient() * foodMultiplier + foodEffect;
+		happiness += HappinessEffect;
+		if (happiness == 0) happiness = 1;
+		money += MoneyEffect;
+		if (money == 0) money = 1;
+		population += PopulationEffect;
+		if (population == 0) population = 1;
+		farms += FarmsEffect;
+		if (farms == 0) farms = 1;
+	}
+
+	private static void NotEnoughFood()
+	{
+
+		populationEffect += (food / Difficulty.FoodRequriedCoefficient());
+		HappinessEffect += (food/ Difficulty.FoodRequriedCoefficient());
+		Debug.Log("Starvation has Occured. Population reduced by: " + populationEffect);
+	}
+
+	
+	#endregion
 }
 
 [System.Serializable]
 public class GroupWater
 {
-	public float waterRecommended; 	//Minimum water needed
-	public float waterNeeded;		//Max amount of water needed
-	public float waterGiven;		//Water given to group
+	public float waterRecommended;  //Minimum water needed
+	public float waterNeeded;       //Max amount of water needed
+	public float waterGiven;        //Water given to group
 
 }

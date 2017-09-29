@@ -11,11 +11,11 @@ public class TurnCounter : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		myText = GetComponent<Text>();
-		myText.text = gameManger.TurnCounter.ToString();
+		myText.text = GameManager.turnCounter.ToString();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		myText.text = gameManger.TurnCounter.ToString();
+		myText.text = GameManager.turnCounter.ToString();
 	}
 }

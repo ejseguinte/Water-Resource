@@ -24,15 +24,15 @@ public class WaterDisplay : MonoBehaviour {
 	// Use this for initialization
 	void Start()
 	{
-		waterUsed = gameManager.ExpendedWater;
-		waterLeft = gameManager.RemainingWater;
-		waterReserve = gameManager.TotalWater;
-		waterUsed = gameManager.ExpendedWater;
-		waterLeft = gameManager.RemainingWater;
-		waterReserveValue.text = gameManager.TotalWater.ToString()+"M";
-		waterExpenditureValue.text = gameManager.ExpendedWater.ToString()+"M";
-		waterRemainingValue.text = gameManager.RemainingWater.ToString()+"M";
-		waterEstimateValue.text = gameManager.EstimateWater.ToString()+"M";
+		waterUsed = GameManager.ExpendedWater;
+		waterLeft = GameManager.RemainingWater;
+		waterReserve = GameManager.TotalWater;
+		waterUsed = GameManager.ExpendedWater;
+		waterLeft = GameManager.RemainingWater;
+		waterReserveValue.text = GameManager.TotalWater.ToString()+"M";
+		waterExpenditureValue.text = GameManager.ExpendedWater.ToString()+"M";
+		waterRemainingValue.text = GameManager.RemainingWater.ToString()+"M";
+		waterEstimateValue.text = GameManager.EstimateWater.ToString()+"M";
 
 		
 	}
@@ -40,17 +40,17 @@ public class WaterDisplay : MonoBehaviour {
 	// Update is called once per frame
 	void Update()
 	{
-		waterReserveValue.text = gameManager.TotalWater.ToString()+"M";
+		waterReserveValue.text = GameManager.TotalWater.ToString()+"M";
 		waterExpenditureValue.text = waterUsed.ToString()+"M";
 		waterRemainingValue.text = waterLeft.ToString()+"M";
-		waterEstimateValue.text = gameManager.EstimateWater.ToString()+"M";
+		waterEstimateValue.text = GameManager.EstimateWater.ToString()+"M";
 	}
 	#endregion
 
 	public void UpdateWaterUsed(float amount){ 
-		waterUsed = gameManager.ExpendedWater + amount;
+		waterUsed = GameManager.ExpendedWater + amount;
 		waterUsed = Mathf.RoundToInt(waterUsed);
-		waterLeft = gameManager.TotalWater - waterUsed;
+		waterLeft = GameManager.TotalWater - waterUsed;
 		waterLeft = Mathf.RoundToInt(waterLeft);
 	}
 	

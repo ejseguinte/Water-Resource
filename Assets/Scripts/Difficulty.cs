@@ -35,9 +35,11 @@ public class Difficulty : MonoBehaviour {
 	public static float FoodProductionCoefficient(){
 		switch(PlayerPrefsManager.GetDifficulty()){
 			case 1:
+				return 20f;
 			case 2:
+				return 15;
 			case 3:
-				return 1f;
+				return 10f;
 			default:
 				Debug.LogError("Difficulty not set correctly: " + PlayerPrefsManager.GetDifficulty());
 				return 0f;
@@ -50,9 +52,11 @@ public class Difficulty : MonoBehaviour {
 	public static float FoodRequriedCoefficient(){
 		switch(PlayerPrefsManager.GetDifficulty()){
 			case 1:
+				return 25f;
 			case 2:
+				return 30f;
 			case 3:
-				return 1f;
+				return 35f;
 			default:
 				Debug.LogError("Difficulty not set correctly: " + PlayerPrefsManager.GetDifficulty());
 				return 0f;
@@ -65,7 +69,9 @@ public class Difficulty : MonoBehaviour {
 	public static float PopulationGrowthCoefficient(){
 		switch(PlayerPrefsManager.GetDifficulty()){
 			case 1:
+				return 1.1f;
 			case 2:
+				return 1.2f;
 			case 3:
 				return 1.3f;
 			default:
@@ -95,9 +101,11 @@ public class Difficulty : MonoBehaviour {
 	public static float WaterEstimateCoefficient(){
 		switch(PlayerPrefsManager.GetDifficulty()){
 			case 1:
+				return Random.Range(.9f, 1.1f);
 			case 2:
+				return Random.Range(.8f, 1.2f);
 			case 3:
-				return 1f;
+				return Random.Range(.7f, 1.3f);
 			default:
 				Debug.LogError("Difficulty not set correctly: " + PlayerPrefsManager.GetDifficulty());
 				return 0f;

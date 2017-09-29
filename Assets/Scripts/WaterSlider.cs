@@ -41,10 +41,10 @@ public class WaterSlider : MonoBehaviour {
 			effect3Title.text = "NULL";
 			effect4Title.text = "NULL";
 		}else{
-			effect1Title.text = "Happiness";
-			effect2Title.text = "Population";
-			effect3Title.text = "Food Growth";
-			effect4Title.text = "Income";
+			effect1Title.text = group.effectID1;
+			effect2Title.text = group.effectID2;
+			effect3Title.text = group.effectID3;
+			effect4Title.text = group.effectID4;
 		}
 		
 	}
@@ -52,6 +52,7 @@ public class WaterSlider : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		water = GameManager.GetItem(LevelManager.groupAttribute);
+		//Debug.Log(LevelManager.groupAttribute);
 		if (water == null)
 		{
 			water = GameManager.GetItem("TEST");
@@ -59,14 +60,23 @@ public class WaterSlider : MonoBehaviour {
 		
 		if (water.waterGiven > 0)
 		{
-			gameManager.ExpendedWater -= water.waterGiven;
+			GameManager.ExpendedWater = GameManager.ExpendedWater - water.waterGiven;
 		}
-		gameManager.RemainingWater = gameManager.TotalWater - gameManager.ExpendedWater;
+		GameManager.RemainingWater = GameManager.TotalWater - GameManager.ExpendedWater;
 		
 		maxWater.text = water.waterNeeded.ToString() + "M";
-		waterDescription.text = "Minimum water needed: " + water.waterRecommended.ToString() + "M\n" + "Total water needed: "  + water.waterNeeded.ToString() + "M";
+		if (group.recommendedWater <= 0)
+		{
+			//Seperate Text for the Market 
+			waterDescription.text = "Max Sellable Water: "  + water.waterNeeded.ToString() + "M";
+		}	
+		else
+		{
+			waterDescription.text = "Minimum water needed: " + water.waterRecommended.ToString() + "M\n" + "Total water needed: "  + water.waterNeeded.ToString() + "M";
+		}
+		
 		offset = water.waterRecommended / water.waterNeeded;
-		if (water.waterGiven < 0)
+		if (water.waterGiven < 0)		//If the water has been allocated yet
 		{
 			waterSlider.value = offset;
 			waterAmount.text = water.waterRecommended.ToString()+"M";
@@ -107,9 +117,16 @@ public class WaterSlider : MonoBehaviour {
 
 	public void Save()
 	{
+		//Update Water
 		water.waterGiven = Mathf.RoundToInt(waterSlider.value * water.waterNeeded);
-		gameManager.ExpendedWater += Mathf.RoundToInt(water.waterGiven);
-		gameManager.RemainingWater = Mathf.RoundToInt(gameManager.TotalWater - gameManager.ExpendedWater);
+		GameManager.ExpendedWater += Mathf.RoundToInt(water.waterGiven);
+		GameManager.RemainingWater = Mathf.RoundToInt(GameManager.TotalWater - GameManager.ExpendedWater);
+
+		//Update Resource Multipliers
+		GameManager.HappinessMultiplier += (effect1.value / 10); //Divided by 10 to make happiness move slower;
+		GameManager.PopulationMultiplier += (effect2.value / 1);
+		GameManager.FoodMultiplier+= (effect3.value / 10);
+		GameManager.MoneyMultiplier += (effect4.value / 1);
 		levelManager.LoadPreviousLevel();
 	}
 

@@ -31,9 +31,17 @@ public class PanelInfo : MonoBehaviour {
 
 	void checkPercent()
 	{
-		if (group != null && group.waterGiven > 0)
+		if (group != null && group.waterGiven >= 0)
 		{
-			percent = group.waterGiven / group.waterRecommended * 100;
+			if (group.waterRecommended <= 0)
+			{
+				percent = group.waterGiven / group.waterNeeded * 100;
+			}
+			else
+			{
+				percent = group.waterGiven / group.waterRecommended * 100;
+			}
+			
 			percent = Mathf.RoundToInt(percent);
 			if (percent < 100)
 			{

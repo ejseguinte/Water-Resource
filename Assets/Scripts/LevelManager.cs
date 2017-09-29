@@ -9,7 +9,7 @@ public class LevelManager : MonoBehaviour {
 
     void Start(){
 		if(autoLoadNextLevelAfter <= 0){
-			Debug.Log("Auto Load Varible set to <= 0. Will not automatically proceed to next Scene in Build Order.");
+			//Debug.Log("Auto Load Varible set to <= 0. Will not automatically proceed to next Scene in Build Order.");
 			if(SceneManager.GetActiveScene().buildIndex == 0){
 				WaterData.LoadItemsData();
 				EventData.LoadItemsData();
@@ -22,7 +22,7 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	public void LoadLevel(string name){
-		Debug.Log ("New Level load: " + name);
+		//Debug.Log ("New Level load: " + name);
 		previousScreen = SceneManager.GetActiveScene().name;
 		SceneManager.LoadScene(name);
 	}
@@ -37,9 +37,9 @@ public class LevelManager : MonoBehaviour {
 	}
 	
 	public void LoadPreviousLevel(){
-		Debug.Log ("New Level load: " + name);
+		//Debug.Log ("New Level load: " + name);
 		string previousLevelName = previousScreen;
-		Debug.Log(previousLevelName);
+		//Debug.Log(previousLevelName);
 		if (previousLevelName == ""){
 			previousLevelName = "01a Start Menu";
 		}

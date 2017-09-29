@@ -7,7 +7,6 @@ public class ResrouceDisplay : MonoBehaviour
 {
 
 	#region Public Variables
-	public GameManager gameManager;
 	public Text happinessValue;
 	public Text foodValue;
 	public Text moneyValue;
@@ -19,21 +18,21 @@ public class ResrouceDisplay : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
-		happinessValue.text = gameManager.Happiness.ToString()+"%";
-		foodValue.text = gameManager.Food.ToString();
-		moneyValue.text = "$"+gameManager.Money.ToString();
-		populationValue.text = gameManager.Population.ToString()+"M";
-		farmValue.text = gameManager.Farms.ToString()+"M";
+		happinessValue.text = GameManager.Happiness.ToString()+"%";
+		foodValue.text = GameManager.Food.ToString();
+		moneyValue.text = "$"+GameManager.Money.ToString();
+		populationValue.text = GameManager.Population.ToString()+"M";
+		farmValue.text = GameManager.Farms.ToString()+"M";
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		happinessValue.text = gameManager.Happiness.ToString()+"%";
-		foodValue.text = gameManager.Food.ToString();
-		moneyValue.text = "$"+gameManager.Money.ToString()+"M";
-		populationValue.text = gameManager.Population.ToString()+"M";
-		farmValue.text = gameManager.Farms.ToString()+"M";
+		happinessValue.text = GameManager.Happiness.ToString()+"%";
+		foodValue.text = GameManager.Food.ToString();
+		moneyValue.text = "$"+GameManager.Money.ToString()+"M";
+		populationValue.text = GameManager.Population.ToString()+"M";
+		farmValue.text = GameManager.Farms.ToString()+"M";
 	}
 	#endregion 
 }
