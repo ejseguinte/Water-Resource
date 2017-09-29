@@ -86,9 +86,11 @@ public class Difficulty : MonoBehaviour {
 	public static float MarketCostCoefficient(){
 		switch(PlayerPrefsManager.GetDifficulty()){
 			case 1:
+				return 2f;
 			case 2:
+				return 1.5f;
 			case 3:
-				return 1.3f;
+				return 1.1f;
 			default:
 				Debug.LogError("Difficulty not set correctly: " + PlayerPrefsManager.GetDifficulty());
 				return 0f;

@@ -46,6 +46,10 @@ public class WaterSlider : MonoBehaviour {
 			effect3Title.text = group.effectID3;
 			effect4Title.text = group.effectID4;
 		}
+		if (group.recommendedWater <= 0)
+		{
+			group.effectMultiplier4 = Difficulty.MarketCostCoefficient();
+		}
 		
 	}
 	
@@ -68,7 +72,8 @@ public class WaterSlider : MonoBehaviour {
 		if (group.recommendedWater <= 0)
 		{
 			//Seperate Text for the Market 
-			waterDescription.text = "Max Sellable Water: "  + water.waterNeeded.ToString() + "M";
+			float money = Mathf.RoundToInt(GameManager.Money * effect4.value);
+			waterDescription.text = "Max Sellable Water: "  + water.waterNeeded.ToString() + "M\n" + "Money gained: " + money + "M";
 		}	
 		else
 		{
@@ -97,6 +102,12 @@ public class WaterSlider : MonoBehaviour {
 	void Update () {
 		UpdateSliders();
 		display.UpdateWaterUsed(waterSlider.value * water.waterNeeded); //TODO convert
+		if (group.recommendedWater <= 0)
+		{
+			//Seperate Text for the Market 
+			float money = Mathf.RoundToInt(GameManager.Money * effect4.value);
+			waterDescription.text = "Max Sellable Water: "  + water.waterNeeded.ToString() + "M\n" + "Money gained: " + money + "M";
+		}
 	}
 
 	private void UpdateSliders(){
@@ -125,7 +136,7 @@ public class WaterSlider : MonoBehaviour {
 		//Update Resource Multipliers
 		GameManager.HappinessMultiplier += (effect1.value / 10); //Divided by 10 to make happiness move slower;
 		GameManager.PopulationMultiplier += (effect2.value / 1);
-		GameManager.FoodMultiplier+= (effect3.value / 10);
+		GameManager.FoodMultiplier += (effect3.value / 10);
 		GameManager.MoneyMultiplier += (effect4.value / 1);
 		levelManager.LoadPreviousLevel();
 	}

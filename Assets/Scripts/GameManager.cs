@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
 	private static float happinessMultiplier 	= 1.0f;
 	private static float moneyMultiplier 		= 1.0f;
 	private static float populationMultiplier 	= 1.0f;
-	private static float farmsMultiplier 		= 0;
+	private static float farmsMultiplier		= 1.0f;
 	private static float foodEffect 			= 0;
 	private static float happinessEffect 		= 0;
 	private static float moneyEffect			= 0;
@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
 		else
 		{
 			gameManager = this;
-			
+			ResetResources();
 			GameObject.DontDestroyOnLoad(gameObject);
 		}
 		SceneManager.activeSceneChanged += DestroyOnMenuScreen;
@@ -493,7 +493,7 @@ public class GameManager : MonoBehaviour
 	private void LoadWater()
 	{
 		int year = PlayerPrefsManager.GetYear();
-		actualWaterArray = WaterData.GetItem("Test");
+		actualWaterArray = WaterData.GetItem(PlayerPrefsManager.GetYear().ToString());
 		//estimatedWaterArray[0] = 1000f;
 	}
 

@@ -31,7 +31,7 @@ public class WaterData
 		}
 		else
 		{
-			return new float[] { 0 };
+			return GetItem("Test");
 		}
 
 	}
