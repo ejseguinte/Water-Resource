@@ -13,6 +13,7 @@ public class PlayerPrefsManager : MonoBehaviour {
 	const string DIFFICULTY_KEY 	= "difficulty";
 	const string YEAR_KEY			= "year";
 	const string KEEP_SCORE_KEY		= "keep_score";
+	const string TOOLTIP_KEY		= "tooltip";
 	const string LEVEL_KEY 			= "level_unlocked_";	//Example: "level_unlocked_01" for Level 1
 	
 	#region Master Volume
@@ -75,6 +76,29 @@ public class PlayerPrefsManager : MonoBehaviour {
 	public static bool GetKeepScore(){
 		int keepScore = PlayerPrefs.GetInt(KEEP_SCORE_KEY);
 		if(keepScore == 1)	{
+			return true;
+		}else {
+			return false;
+		}
+	}
+	#endregion
+	
+	#region Tooltips
+
+	public static void SetToolTip (bool tooltip){
+		int value = -1;
+		if(tooltip == true)	{
+			value = 1;
+		}else {
+			value = 0;
+		}
+		
+		PlayerPrefs.SetInt(TOOLTIP_KEY, value);
+	}
+
+	public static bool GetTooltip(){
+		int tooltip = PlayerPrefs.GetInt(TOOLTIP_KEY);
+		if(tooltip == 1)	{
 			return true;
 		}else {
 			return false;

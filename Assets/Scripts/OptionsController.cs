@@ -8,6 +8,7 @@ public class OptionsController : MonoBehaviour {
 	public Slider volume;
 	public Slider difficulty;
 	public Toggle keepScore;
+	public Toggle tooltip;
 	public Dropdown year;
 	public LevelManager levelManager;
 	
@@ -21,6 +22,7 @@ public class OptionsController : MonoBehaviour {
 		volume.value = PlayerPrefsManager.GetMasterVolume();
 		difficulty.value = PlayerPrefsManager.GetDifficulty();
 		keepScore.isOn = PlayerPrefsManager.GetKeepScore();
+		tooltip.isOn = PlayerPrefsManager.GetTooltip();
 		year.value = PlayerPrefsManager.GetYear();
 	}
 	
@@ -35,6 +37,7 @@ public class OptionsController : MonoBehaviour {
 		volume.value = 80f;
 		difficulty.value = 2f;
 		keepScore.isOn = true;
+		tooltip.isOn = true;
 		year.value = 0;
 	}
 	
@@ -42,6 +45,7 @@ public class OptionsController : MonoBehaviour {
 		PlayerPrefsManager.SetMasterVolume(volume.value);
 		PlayerPrefsManager.SetDifficulty(difficulty.value);
 		PlayerPrefsManager.SetKeepScore(keepScore.isOn);
+		PlayerPrefsManager.SetToolTip(tooltip.isOn);
 		PlayerPrefsManager.SetYear(year.value);
 		
 		if(musicManager){

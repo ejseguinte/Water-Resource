@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
- 
+//From http://www.hammerandravens.com/multi-use-tooltip-system-in-unity3d/
 public class MainMapTooltip : MonoBehaviour {
  
 	 //manually selectable padding for the background image
@@ -53,72 +53,86 @@ public class MainMapTooltip : MonoBehaviour {
 	 //real on screen sizes of the tooltip object
 	 float tooltipRealHeight;
 	 float tooltipRealWidth;
-	 
-	 // Use this for initialization
-	 void Start () {
-		 //in this line you need to change the string in order to get your Camera //TODO MAYBE DO IT FROM THE INSPECTOR
-		 GUICamera = GameObject.Find("Main Camera").GetComponent<Camera>();
-		 GUIMode = this.transform.parent.parent.GetComponent<Canvas>().renderMode;
-		 
-		 bgImageSource=bgImage.GetComponent<Image>();
-		 
-		 //at start the pointer is never to be considered over and UI element
-		 inside=false;
-		 
-		 //assign the tooltip to the singleton GUI class manager for fast access
-		 GameManager.tooltip = this;
-		 
-		 //hide the tooltip
-		 HideTooltipVisibility();
-		 this.transform.parent.gameObject.SetActive(false);
-		 }
+
+	// Use this for initialization
+	void Start()
+	{
+			//in this line you need to change the string in order to get your Camera //TODO MAYBE DO IT FROM THE INSPECTOR
+			GUICamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+		GUIMode = this.transform.parent.parent.GetComponent<Canvas>().renderMode;
+
+		bgImageSource = bgImage.GetComponent<Image>();
+
+		//at start the pointer is never to be considered over and UI element
+		inside = false;
+
+		//assign the tooltip to the singleton GUI class manager for fast access
+		GameManager.tooltip = this;
+
+		//hide the tooltip
+		HideTooltipVisibility();
+		this.transform.parent.gameObject.SetActive(false);
+	 }
 		 
 		 
 		 //single string input tooltip
 	 public void SetTooltip(string text){
-		 NewTooltip();
-		 
-		 //init tooltip string
-		 thisText.text=text;
-		 //call the position function
-		 OnScreenSpaceCamera();
+		if (PlayerPrefsManager.GetTooltip())
+		{
+			NewTooltip();
+
+			//init tooltip string
+			thisText.text = text;
+			//call the position function
+			OnScreenSpaceCamera();
+		}
 	 }
 	 
 	 
 	 //multi string/line input tooltip (each string of the input array is a new line)
 	 public void SetTooltip(string[] texts){
-		 NewTooltip();
-		 
-		 //build up the tooltip line after line with the input
-		 string tooltipText = "";
-		 int index = 0;
-		 foreach(string newLine in texts){
-			 if(index==0){
-			 	tooltipText+=newLine;
-			 }else{
-			 	tooltipText+=("\n"+newLine);
-			 }
-			 index++;
-		 }
-		  
-		 //init tooltip string
-		 thisText.text=tooltipText;
-		  
-		 //call the position function
-		 OnScreenSpaceCamera();
+		if (PlayerPrefsManager.GetTooltip())
+		{
+			NewTooltip();
+
+			//build up the tooltip line after line with the input
+			string tooltipText = "";
+			int index = 0;
+			foreach (string newLine in texts)
+			{
+				if (index == 0)
+				{
+					tooltipText += newLine;
+				}
+				else
+				{
+					tooltipText += ("\n" + newLine);
+				}
+				index++;
+			}
+
+			//init tooltip string
+			thisText.text = tooltipText;
+
+			//call the position function
+			OnScreenSpaceCamera();
+		}
 	 }
 	 
 	 
 	 
 	 //temporary call to don't fuck up old code, will be removed
 	 public void SetTooltip(string text, bool test){
-		 NewTooltip();
-		 
-		 //init tooltip string
-		 thisText.text=text;
-		 
-		 //call the position function
-		 OnScreenSpaceCamera();
+		if (PlayerPrefsManager.GetTooltip())
+		{
+			NewTooltip();
+
+			//init tooltip string
+			thisText.text = text;
+
+			//call the position function
+			OnScreenSpaceCamera();
+		}
 	 }
 	 
 	 

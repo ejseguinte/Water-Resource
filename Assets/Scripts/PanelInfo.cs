@@ -25,12 +25,11 @@ public class PanelInfo : MonoBehaviour {
 
 	public void OnPointerEnter(GameObject hovered)
 	{
-		GameManager.tooltip.SetTooltip("Hello");
+		GameManager.tooltip.SetTooltip(hovered.GetComponent<PanelInfo>().GroupName);
 	}
 
 	public void OnPointerExit(GameObject hovered)
 	{
-		Debug.Log("exit");
 		GameManager.tooltip.HideTooltip();
 	}
 	// Update is called once per frame
