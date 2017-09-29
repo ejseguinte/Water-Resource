@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
 	#region Static
 	public static int maxTurns = 12;
 	public static GameManager gameManager = null;
+	public static MainMapTooltip tooltip;
 	public Text helper;
 	#endregion
 

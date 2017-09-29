@@ -14,14 +14,25 @@ public class PanelInfo : MonoBehaviour {
 	float percent;
 	// Use this for initialization
 	void Start () {
-		gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+		gameManager = GameManager.gameManager;
 		group = GameManager.GetItem(GroupName);
 		warningPanel = this.transform.GetChild(0).gameObject;
 		percentGiven= this.transform.GetChild(1).gameObject.GetComponent<Text>();
+		MouserPointerHandler.mph.AddMouseTracker(this.gameObject,OnPointerEnter,OnPointerExit);
 		
 		
 	}
-	
+
+	public void OnPointerEnter(GameObject hovered)
+	{
+		GameManager.tooltip.SetTooltip("Hello");
+	}
+
+	public void OnPointerExit(GameObject hovered)
+	{
+		Debug.Log("exit");
+		GameManager.tooltip.HideTooltip();
+	}
 	// Update is called once per frame
 	void Update () {
 		warningPanel.SetActive(!gameManager.CheckWaterAllocation(GroupName));
