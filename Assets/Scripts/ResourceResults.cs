@@ -26,7 +26,7 @@ public class ResourceResults : MonoBehaviour {
 		setColor(populationValue, GetPopulation());
 		if(farmsValue!= null)
 			farmsValue.text = GetFarms().ToString() + "M";
-		setColor(farmsValue, GetHappiness());
+		setColor(farmsValue, GetFarms());
 	}
 	
 	// Update is called once per frame
@@ -38,10 +38,12 @@ public class ResourceResults : MonoBehaviour {
 	{
 		if (val < 0)
 		{
+			if(field != null)
 			field.color = Color.red;
 		}
 		else
 		{
+			if(field != null)
 			field.color = Color.green;
 		}
 

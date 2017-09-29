@@ -656,6 +656,7 @@ public class GameManager : MonoBehaviour
 
 		populationEffect += (food / Difficulty.FoodRequriedCoefficient());
 		HappinessEffect += (food/ Difficulty.FoodRequriedCoefficient());
+		populationMultiplier = 1f;
 		Debug.Log("Starvation has Occured. Population reduced by: " + populationEffect);
 	}
 
