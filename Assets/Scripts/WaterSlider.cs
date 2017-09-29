@@ -18,7 +18,6 @@ public class WaterSlider : MonoBehaviour {
 	public Text maxWater;
 	public Text waterAmount;
 	
-	private GameManager gameManager;
 	private LevelManager levelManager;
 	private Group group;
 	private GroupWater water;
@@ -26,7 +25,6 @@ public class WaterSlider : MonoBehaviour {
 	private float offset;
 	
 	void Awake () {
-		gameManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
 		levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
 		waterSlider = GetComponent<Slider>();
 		group = GroupData.GetItem(LevelManager.groupAttribute);
