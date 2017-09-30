@@ -47,6 +47,7 @@ public class EventManager : MonoBehaviour {
 	{
 		GameManager.EventDisplayed = false;
 		GameManager.tooltip.HideTooltip();
+		GameManager.gameManager.NextState();
 
 	}
 }
