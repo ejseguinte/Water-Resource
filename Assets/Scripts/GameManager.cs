@@ -156,9 +156,11 @@ public class GameManager : MonoBehaviour
 
 	private void EndAllocation()
 	{
+		eventManager.AddEvent("ExtraFood");
 		State = GameState.Event;
+		eventManager.SetNextEvent();
 		ResourceBeforeEffects();
-		eventManager.SetEvent("ExtraFood");
+		
 	}
 
 	private void EndEvent()

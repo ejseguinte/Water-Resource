@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.ComponentModel;
 
 public class EventManager : MonoBehaviour {
 
@@ -12,7 +13,7 @@ public class EventManager : MonoBehaviour {
 	#endregion
 
 	#region Public Variables
-
+	public Queue<string> eventNames;
 	#endregion
 	// Use this for initialization
 	void Start()
@@ -25,18 +26,37 @@ public class EventManager : MonoBehaviour {
 		{
 			GameManager.eventManager = this;
 			eventManager = this;
+			eventNames = new Queue<string>();
 		}
 		
 		
 		
+	}
+
+	public void AddEvent(string name)
+	{	
+		eventNames.Enqueue(name);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
+
+	public bool SetNextEvent()
+	{
+		if (eventNames.Count > 0)
+		{
+			string name = eventNames.Dequeue();
+			SetEvent(name);
+			return true;
+		}
+
+		return false;
+
+	}
 	
-	public void SetEvent(string name){
+	private void SetEvent(string name){
 		Event events = EventData.GetItem(name);
 		string[] text = { events.guiName, events.description};
 		GameManager.tooltip.SetEvent(text);
@@ -47,7 +67,8 @@ public class EventManager : MonoBehaviour {
 	{
 		GameManager.EventDisplayed = false;
 		GameManager.tooltip.HideTooltip();
-		GameManager.gameManager.NextState();
+		if(!SetNextEvent())
+			GameManager.gameManager.NextState();
 
 	}
 }
