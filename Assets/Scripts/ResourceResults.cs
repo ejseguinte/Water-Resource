@@ -58,11 +58,6 @@ public class ResourceResults : MonoBehaviour {
 
 	float GetFood()
 	{
-		Debug.Log("Farms: "+ GameManager.Farms);
-		Debug.Log("Food Production: "+ Difficulty.FoodProductionCoefficient());
-		Debug.Log("Food Multiplier: "+ GameManager.FoodMultiplier);
-		Debug.Log("Food Effect: "+ GameManager.FoodEffect);
-		Debug.Log("Food: "+ GameManager.Food);
 		float val = GameManager.Farms * Difficulty.FoodProductionCoefficient() * GameManager.FoodMultiplier + GameManager.FoodEffect;
 		return Mathf.RoundToInt(val); 
 	}

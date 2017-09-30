@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 	public static int maxTurns = 12;
 	public static GameManager gameManager = null;
 	public static MainMapTooltip tooltip;
+	public static EventManager eventManager;
 	public Text helper;
 	#endregion
 
@@ -22,7 +23,8 @@ public class GameManager : MonoBehaviour
 	private static int menuScreenBuildIndex = 1; //the menu screen's index in your Build Settings
 	private LevelManager levelManager;
 	private float initialFixedTimeDeltaTime;
-	private GameState state = GameState.Allocate;
+	private static GameState state = GameState.Allocate;
+	private static bool eventDisplayed;
 
 	//Resources
 	private static float food 					= 2000;
@@ -115,7 +117,7 @@ public class GameManager : MonoBehaviour
 
 	public string GetState()
 	{
-		switch (state)
+		switch (State)
 		{
 			case GameState.Allocate:
 				return "Allocation";
@@ -124,16 +126,16 @@ public class GameManager : MonoBehaviour
 			case GameState.End:
 				return "Results";
 			default:
-				Debug.Log(state);
+				Debug.Log(State);
 				return "Error";
 		}
 	}
 
 	public void NextState()
 	{
-		if (CheckAllWaterAllocation())
+		if (CheckAllWaterAllocation() && eventDisplayed != true)
 		{
-			switch (state)
+			switch (State)
 			{
 				case GameState.Allocate:
 					EndAllocation();
@@ -154,13 +156,14 @@ public class GameManager : MonoBehaviour
 
 	private void EndAllocation()
 	{
-		state = GameState.Event;
+		State = GameState.Event;
 		ResourceBeforeEffects();
+		eventManager.SetEvent("ExtraFood");
 	}
 
 	private void EndEvent()
 	{
-		state = GameState.End;
+		State = GameState.End;
 		levelManager = GameObject.FindObjectOfType<LevelManager>() as LevelManager;
 		levelManager.LoadLevel("02b Game Report");
 	}
@@ -180,7 +183,7 @@ public class GameManager : MonoBehaviour
 			UpdateResources();
 			ResetResources();
 			
-			state = GameState.Allocate;
+			State = GameState.Allocate;
 			UpdateWater(turnCounter - 1);
 			LoadWaterData();
 			
@@ -488,6 +491,32 @@ public class GameManager : MonoBehaviour
 			actualWaterArray = value;
 		}
 	}
+
+	public static GameState State
+	{
+		get
+		{
+			return state;
+		}
+
+		set
+		{
+			state = value;
+		}
+	}
+
+	public static bool EventDisplayed
+	{
+		get
+		{
+			return eventDisplayed;
+		}
+
+		set
+		{
+			eventDisplayed = value;
+		}
+	}
 	#endregion
 
 	#region Water Need Functions
@@ -570,12 +599,14 @@ public class GameManager : MonoBehaviour
 			if (!CheckWaterAllocation(key))
 			{
 				Debug.Log("Not all Groups have been Allocated Water");
+				tooltip.CreateWarning("Not all Groups have been Allocated Water");
 				return false;
 			}
 		}
 		if (remainingWater < 0)
 		{
 			Debug.Log("Too much water has been allocated.");
+			tooltip.CreateWarning("Too much water has been allocated.");
 			return false;
 		}
 		return true;

@@ -1,13 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Security.Permissions;
 
 public class EventData{
 
 	private static Dictionary<string, Event> _table = new Dictionary<string, Event>(); //Key  is Year and Month ie 201701: January of 2017
 
 	public static void LoadItemsData(){
+		Event newGroup = new Event()
+		{
+			nameID = "ExtraFood",
+			guiName = "Extra Food",
+			description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam maximus erat sed elit tristique hendrerit. Fusce dictum tortor neque, id vulputate erat tristique at. Aliquam vestibulum tincidunt odio a ultrices. Nullam id iaculis nisl. Ut placerat pharetra vestibulum. Vestibulum quis pharetra magna. Vivamus dapibus mauris quis nisi eleifend hendrerit ac at nulla. Sed et magna eget mauris vehicula finibus. Donec nec venenatis erat.",
+			foodMultiplier = 1
+			
+			
+		};
 
+		_table.Add(newGroup.nameID, newGroup);
 	}
 
 	public static Event GetItem(string name){
@@ -32,5 +43,13 @@ public class Event
 	public string nameID;
 	public string guiName;
 	public string description;
+	public float foodEffect;
+	public float foodMultiplier;
+
+	public void InstantEffect()
+	{
+		GameManager.Food += foodEffect;
+		GameManager.FoodMultiplier += foodMultiplier;
+	}
 
 }

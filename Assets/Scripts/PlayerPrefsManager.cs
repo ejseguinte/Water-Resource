@@ -12,6 +12,7 @@ public class PlayerPrefsManager : MonoBehaviour {
 	const string MASTER_VOLUME_KEY 	= "master_volume";
 	const string DIFFICULTY_KEY 	= "difficulty";
 	const string YEAR_KEY			= "year";
+	const string WARNING_KEY		= "warning";
 	const string KEEP_SCORE_KEY		= "keep_score";
 	const string TOOLTIP_KEY		= "tooltip";
 	const string LEVEL_KEY 			= "level_unlocked_";	//Example: "level_unlocked_01" for Level 1
@@ -103,6 +104,18 @@ public class PlayerPrefsManager : MonoBehaviour {
 		}else {
 			return false;
 		}
+	}
+	#endregion
+
+
+	#region Warning Life Span
+
+	public static void SetWarning (float value){
+		PlayerPrefs.SetFloat(WARNING_KEY, value);
+	}
+
+	public static float GetWarning(){
+		return PlayerPrefs.GetFloat(WARNING_KEY);
 	}
 	#endregion
 	

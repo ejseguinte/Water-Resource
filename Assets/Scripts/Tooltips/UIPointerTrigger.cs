@@ -16,14 +16,16 @@ public class UIPointerTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExi
 	}
 	 
 	#region IPointerEnterHandler implementation
-		void IPointerEnterHandler.OnPointerEnter (PointerEventData eventData){
-		OnPointerEnter(this.gameObject);
+	void IPointerEnterHandler.OnPointerEnter (PointerEventData eventData){
+		if(!GameManager.EventDisplayed)
+			OnPointerEnter(this.gameObject);
 	}
 	#endregion
 	 
 	#region IPointerExitHandler implementation
-		void IPointerExitHandler.OnPointerExit (PointerEventData eventData){
-		OnPointerExit(this.gameObject);
+	void IPointerExitHandler.OnPointerExit (PointerEventData eventData){
+		if(!GameManager.EventDisplayed)
+			OnPointerExit(this.gameObject);
 	}
 	#endregion
 }

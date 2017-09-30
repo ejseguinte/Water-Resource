@@ -2,8 +2,10 @@
 using System.Collections;
 using UnityEngine.UI;
 //From http://www.hammerandravens.com/multi-use-tooltip-system-in-unity3d/
+using System.Security.Cryptography.X509Certificates;
 public class MainMapTooltip : MonoBehaviour {
- 
+
+	 public GameObject tooltip;
 	 //manually selectable padding for the background image
 	 public int horizontalPadding;
 	 public int verticalPadding;
@@ -29,8 +31,8 @@ public class MainMapTooltip : MonoBehaviour {
 	// public float height;
 	 
 	 //detect canvas mode so to apply different behaviors to different canvas modes, currently only RenderMode.ScreenSpaceCamera implemented
-	 int canvasMode;
-	 RenderMode GUIMode;
+	 //int canvasMode;
+	 //RenderMode GUIMode;
 	 
 	 //the scene GUI camera
 	 Camera GUICamera;
@@ -53,13 +55,17 @@ public class MainMapTooltip : MonoBehaviour {
 	 //real on screen sizes of the tooltip object
 	 float tooltipRealHeight;
 	 float tooltipRealWidth;
+	 
+	 //boolean value used if pop-up is an event
+	 bool isEvent;
 
 	// Use this for initialization
 	void Start()
 	{
-			//in this line you need to change the string in order to get your Camera //TODO MAYBE DO IT FROM THE INSPECTOR
-			GUICamera = GameObject.Find("Main Camera").GetComponent<Camera>();
-		GUIMode = this.transform.parent.parent.GetComponent<Canvas>().renderMode;
+
+		//in this line you need to change the string in order to get your Camera //TODO MAYBE DO IT FROM THE INSPECTOR
+		GUICamera = GameObject.Find("Main Camera").GetComponent<Camera>();
+		//GUIMode = this.transform.parent.parent.GetComponent<Canvas>().renderMode;
 
 		bgImageSource = bgImage.GetComponent<Image>();
 
@@ -73,12 +79,63 @@ public class MainMapTooltip : MonoBehaviour {
 		HideTooltipVisibility();
 		this.transform.parent.gameObject.SetActive(false);
 	 }
+	 
 		 
 		 
 		 //single string input tooltip
+	 public void CreateWarning(string text){
+		isEvent = false;
+		//NewTooltip();
+		//call the position function
+		//get the dynamic position of the pous in viewport coordinates
+		Vector3 newPos = new Vector3(.5f, .5f, 0f);
+		Vector3 onScreen = new Vector3(GUICamera.ViewportToScreenPoint(newPos).x ,GUICamera.ViewportToScreenPoint(newPos).y ,0f);
+		GameObject warning = Instantiate(tooltip, onScreen, Quaternion.identity);
+
+		Text textBox = warning.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>();
+		RectTransform background = warning.GetComponent<RectTransform>();
+		HorizontalLayoutGroup layout = warning.transform.GetChild(0).GetComponent<HorizontalLayoutGroup>();
+		
+		textBox.text = text;
+		warning.transform.SetParent(this.transform.parent.parent);
+		
+	 }
+	 
+	 //multi string/line input tooltip (each string of the input array is a new line)
+	 public void SetEvent(string[] texts){
+		isEvent = true;
+		NewTooltip();
+		
+		//build up the tooltip line after line with the input
+		string tooltipText = "";
+		int index = 0;
+		foreach (string newLine in texts)
+		{
+			
+			if (index == 0)
+			{
+				tooltipText += newLine;
+			}
+			else
+			{
+				tooltipText += ("\n" + newLine);
+			}
+			index++;
+		}
+		
+		tooltipText += ("\n\n" + "Click to Close");
+		//init tooltip string
+		thisText.text = tooltipText;
+
+		//call the position function
+		CenterScreen();
+	 }
+	 
+	 	//single string input tooltip
 	 public void SetTooltip(string text){
 		if (PlayerPrefsManager.GetTooltip())
 		{
+			isEvent = false;
 			NewTooltip();
 
 			//init tooltip string
@@ -88,11 +145,11 @@ public class MainMapTooltip : MonoBehaviour {
 		}
 	 }
 	 
-	 
 	 //multi string/line input tooltip (each string of the input array is a new line)
 	 public void SetTooltip(string[] texts){
 		if (PlayerPrefsManager.GetTooltip())
 		{
+			isEvent = false;
 			NewTooltip();
 
 			//build up the tooltip line after line with the input
@@ -110,7 +167,7 @@ public class MainMapTooltip : MonoBehaviour {
 				}
 				index++;
 			}
-
+		
 			//init tooltip string
 			thisText.text = tooltipText;
 
@@ -125,6 +182,7 @@ public class MainMapTooltip : MonoBehaviour {
 	 public void SetTooltip(string text, bool test){
 		if (PlayerPrefsManager.GetTooltip())
 		{
+			isEvent = false;
 			NewTooltip();
 
 			//init tooltip string
@@ -135,6 +193,17 @@ public class MainMapTooltip : MonoBehaviour {
 		}
 	 }
 	 
+	 //position function, currently not working correctly due to the use of pivots and not manual offsets, soon to be fixed
+	 public void CenterScreen(){
+		 //get the dynamic position of the pous in viewport coordinates
+		 Vector3 newPos = new Vector3(.5f, .5f, 0f);
+		 
+		 this.transform.parent.transform.position= new Vector3(GUICamera.ViewportToScreenPoint(newPos).x ,GUICamera.ViewportToScreenPoint(newPos).y ,0f);
+		 this.transform.parent.gameObject.SetActive(true);
+		 this.transform.parent.GetComponent<RectTransform>().pivot = new Vector2(.5f, .5f);
+		 
+		 inside = false;
+	 }
 	 
 	 //position function, currently not working correctly due to the use of pivots and not manual offsets, soon to be fixed
 	 public void OnScreenSpaceCamera(){
@@ -222,29 +291,30 @@ public class MainMapTooltip : MonoBehaviour {
 			 Vector3 newTooltipPos = new Vector3(newPos.x,GUICamera.ViewportToScreenPoint(newPos).y+yOffSet,0f);
 			 newPos.y = GUICamera.ScreenToViewportPoint(newTooltipPos).y;
 		 }
-		 this.transform.parent.transform.position= new Vector3(GUICamera.ViewportToScreenPoint(newPos).x ,GUICamera.ViewportToScreenPoint(newPos).y ,-5f);
+		 this.transform.parent.transform.position= new Vector3(GUICamera.ViewportToScreenPoint(newPos).x ,GUICamera.ViewportToScreenPoint(newPos).y ,0f);
+		 this.transform.parent.GetComponent<RectTransform>().pivot = new Vector2(-.3f, 1.5f);
 		 this.transform.parent.gameObject.SetActive(true);
 		 inside=true;
 	 }
 	 
 	 //call to hide tooltip when hovering out from the object
 	 public void HideTooltip(){
-		 if(GUIMode==RenderMode.ScreenSpaceOverlay){
+		 //if(GUIMode==RenderMode.ScreenSpaceOverlay){
 			 if(this!=null){
 				 this.transform.parent.gameObject.SetActive(false);
 				 inside=false;
 				 HideTooltipVisibility();
 			 }
-		 }
+		 //}
 	 }
 	 
 	 // Update is called once per frame
 	 void Update () {
 		 LayoutInit();
 			 if(inside){
-				 if(GUIMode==RenderMode.ScreenSpaceOverlay){
+				 //if(GUIMode==RenderMode.ScreenSpaceOverlay){
 				 	OnScreenSpaceCamera();
-				 }
+				 //}
 		 }
 	 }
 	 
@@ -252,8 +322,19 @@ public class MainMapTooltip : MonoBehaviour {
 	 void LayoutInit(){
 		 if(firstUpdate){
 			 firstUpdate=false;
-			 
-			 bgImage.sizeDelta=new Vector2(hlG.preferredWidth+horizontalPadding,hlG.preferredHeight+verticalPadding);
+
+			if (isEvent)
+			{
+				this.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width/2, thisText.rectTransform.sizeDelta.x);
+				bgImage.sizeDelta = new Vector2(Screen.width / 2, thisText.rectTransform.sizeDelta.x);
+				GameManager.EventDisplayed = true;
+			}
+			else
+			{
+				bgImage.sizeDelta = new Vector2(thisText.preferredWidth + horizontalPadding, hlG.preferredHeight + verticalPadding);
+			}
+
+			
 			 
 			 defaultYOffset = (bgImage.sizeDelta.y*currentYScaleFactor*(bgImage.pivot.y));
 			 defaultXOffset = (bgImage.sizeDelta.x*currentXScaleFactor*(bgImage.pivot.x));
