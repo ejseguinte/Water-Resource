@@ -29,8 +29,8 @@ public class MusicPlayer : MonoBehaviour {
 	void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode){
 		print(scene.name);
 		AudioClip thisLevelMusic = levelMusicChangeArray[scene.buildIndex];
-		Debug.Log ("Playing clip:" + thisLevelMusic);
-		Debug.Log (audiosSource);
+		//Debug.Log ("Playing clip:" + thisLevelMusic);
+		//Debug.Log (audiosSource);
 		if(thisLevelMusic){
 			audiosSource.clip = thisLevelMusic;
 			if(scene.buildIndex == 0){
