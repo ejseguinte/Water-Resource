@@ -20,8 +20,7 @@ public class Destroy : MonoBehaviour {
 				RectTransform background = this.GetComponent<RectTransform>();
 				HorizontalLayoutGroup layout = this.transform.GetChild(0).GetComponent<HorizontalLayoutGroup>();
 
-				layout.GetComponent<RectTransform>().sizeDelta = new Vector2(textBox.preferredWidth , textBox.preferredHeight/ 2);
-				background.sizeDelta = new Vector2(textBox.preferredWidth + 40, textBox.preferredHeight/ 2);
+				background.sizeDelta = new Vector2(layout.preferredWidth + 8, layout.preferredHeight + 8);
 
 			
 		 }

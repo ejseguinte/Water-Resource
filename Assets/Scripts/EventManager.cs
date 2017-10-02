@@ -8,12 +8,10 @@ public class EventManager : MonoBehaviour {
 
 	#region Private Variables
 	EventManager eventManager;
-	public delegate void CurrentDelegate();
-	CurrentDelegate currentDelegate;
 	#endregion
 
 	#region Public Variables
-	public Queue<string> eventNames;
+	public static Queue<string> eventNames;
 	#endregion
 	// Use this for initialization
 	void Start()
@@ -33,7 +31,7 @@ public class EventManager : MonoBehaviour {
 		
 	}
 
-	public void AddEvent(string name)
+	public static void AddEvent(string name)
 	{	
 		eventNames.Enqueue(name);
 	}

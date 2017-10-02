@@ -23,8 +23,11 @@ public class LevelManager : MonoBehaviour {
 
 	public void LoadLevel(string name){
 		//Debug.Log ("New Level load: " + name);
-		previousScreen = SceneManager.GetActiveScene().name;
-		SceneManager.LoadScene(name);
+		if (!GameManager.EventDisplayed)
+		{
+			previousScreen = SceneManager.GetActiveScene().name;
+			SceneManager.LoadScene(name);
+		}
 	}
 
 	public void QuitRequest(){
@@ -33,7 +36,10 @@ public class LevelManager : MonoBehaviour {
 	}
 	
 	public void LoadNextLevel(){
-		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1, LoadSceneMode.Single);
+		if (!GameManager.EventDisplayed)
+		{
+			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1, LoadSceneMode.Single);
+		}
 	}
 	
 	public void LoadPreviousLevel(){
@@ -48,10 +54,13 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	public void LoadGroupLevel(string name){
-		Debug.Log ("Loading Group Screen: " + name);
-		previousScreen = SceneManager.GetActiveScene().name;
-		groupAttribute = name;
-		SceneManager.LoadScene("02c Game Sliders");
+		if (!GameManager.EventDisplayed)
+		{
+			Debug.Log("Loading Group Screen: " + name);
+			previousScreen = SceneManager.GetActiveScene().name;
+			groupAttribute = name;
+			SceneManager.LoadScene("02c Game Sliders");
+		}
 	}
 	
 	

@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
 	#endregion
 
 	#region Private Variables
+	private Map panels;
 	private static int menuScreenBuildIndex = 1; //the menu screen's index in your Build Settings
 	private LevelManager levelManager;
 	private float initialFixedTimeDeltaTime;
@@ -101,9 +102,6 @@ public class GameManager : MonoBehaviour
 		UpdateWater(turnCounter - 1);
 		LoadWaterData();        //Loads water Data for Groups
 
-
-		//helper.text = " ";
-
 	}
 
 	// Update is called once per frame
@@ -156,7 +154,9 @@ public class GameManager : MonoBehaviour
 
 	private void EndAllocation()
 	{
-		eventManager.AddEvent("ExtraFood");
+		EventManager.AddEvent("ExtraFood");
+		EventManager.AddEvent("ExtraFood");
+		EventManager.AddEvent("ExtraFood");
 		State = GameState.Event;
 		eventManager.SetNextEvent();
 		ResourceBeforeEffects();
@@ -193,8 +193,9 @@ public class GameManager : MonoBehaviour
 			levelManager.LoadLevel("02a Game");
 		}
 	}
-
+	
 	#endregion
+
 
 	#region Pause Methods
 

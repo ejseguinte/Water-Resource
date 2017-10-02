@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 //From http://www.hammerandravens.com/multi-use-tooltip-system-in-unity3d/
 using System.Security.Cryptography.X509Certificates;
+using UnityEditor;
 public class MainMapTooltip : MonoBehaviour {
 
 	 public GameObject tooltip;
@@ -93,8 +94,6 @@ public class MainMapTooltip : MonoBehaviour {
 		GameObject warning = Instantiate(tooltip, onScreen, Quaternion.identity);
 
 		Text textBox = warning.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>();
-		RectTransform background = warning.GetComponent<RectTransform>();
-		HorizontalLayoutGroup layout = warning.transform.GetChild(0).GetComponent<HorizontalLayoutGroup>();
 		
 		textBox.text = text;
 		warning.transform.SetParent(this.transform.parent.parent);
@@ -105,7 +104,8 @@ public class MainMapTooltip : MonoBehaviour {
 	 public void SetEvent(string[] texts){
 		isEvent = true;
 		NewTooltip();
-		
+		HideTooltip();
+		NewTooltip();
 		//build up the tooltip line after line with the input
 		string tooltipText = "";
 		int index = 0;
@@ -129,6 +129,7 @@ public class MainMapTooltip : MonoBehaviour {
 
 		//call the position function
 		CenterScreen();
+		Debug.Log("New Event");
 	 }
 	 
 	 	//single string input tooltip
@@ -311,27 +312,31 @@ public class MainMapTooltip : MonoBehaviour {
 	 // Update is called once per frame
 	 void Update () {
 		 LayoutInit();
-			 if(inside){
-				 //if(GUIMode==RenderMode.ScreenSpaceOverlay){
-				 	OnScreenSpaceCamera();
-				 //}
-		 }
+		if (inside)
+		{
+			OnScreenSpaceCamera();
+		}
+		else
+		{
+			this.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width/2, thisText.preferredHeight + verticalPadding);
+				bgImage.sizeDelta = new Vector2(Screen.width / 2, hlG.preferredHeight + verticalPadding);
+		}
 	 }
 	 
 	 //this function is used in order to setup the size of the tooltip by cheating on the HorizontalLayoutBehavior. The resize is done in the first update.
 	 void LayoutInit(){
 		 if(firstUpdate){
-			 firstUpdate=false;
-
+			firstUpdate=false;
+			
 			if (isEvent)
 			{
-				this.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width/2, thisText.rectTransform.sizeDelta.x);
-				bgImage.sizeDelta = new Vector2(Screen.width / 2, thisText.rectTransform.sizeDelta.x);
+				this.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width/2, thisText.preferredHeight + verticalPadding);
+				bgImage.sizeDelta = new Vector2(Screen.width / 2, hlG.preferredHeight + verticalPadding);
 				GameManager.EventDisplayed = true;
 			}
 			else
 			{
-				bgImage.sizeDelta = new Vector2(thisText.preferredWidth + horizontalPadding, hlG.preferredHeight + verticalPadding);
+				bgImage.sizeDelta = new Vector2(hlG.preferredWidth + horizontalPadding, hlG.preferredHeight + verticalPadding);
 			}
 
 			
