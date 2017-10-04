@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
 	public static GameManager gameManager = null;
 	public static MainMapTooltip tooltip;
 	public static EventManager eventManager;
-	public GameObject helper;
 	#endregion
 
 	#region Public Variables
@@ -110,10 +109,6 @@ public class GameManager : MonoBehaviour
 
 	}
 
-	public void DebugLog(string log)
-	{
-		helper.GetComponent<Text>().text = log;
-	}
 	#endregion
 
 	#region State Control

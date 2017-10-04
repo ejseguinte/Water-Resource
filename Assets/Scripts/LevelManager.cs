@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class LevelManager : MonoBehaviour {
 	public static string previousScreen = "";
@@ -22,8 +23,8 @@ public class LevelManager : MonoBehaviour {
 	}
 
 	public void LoadLevel(string name){
-		//Debug.Log ("New Level load: " + name);
-		if (!GameManager.EventDisplayed)
+		string button = EventSystem.current.currentSelectedGameObject.name;
+		if (!GameManager.EventDisplayed || (button == "Main Menu Button"))
 		{
 			previousScreen = SceneManager.GetActiveScene().name;
 			SceneManager.LoadScene(name);

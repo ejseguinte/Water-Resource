@@ -85,9 +85,6 @@ public class MainMapTooltip : MonoBehaviour {
 		 //single string input tooltip
 	 public void CreateWarning(string text){
 		isEvent = false;
-		//NewTooltip();
-		//call the position function
-		//get the dynamic position of the pous in viewport coordinates
 		Vector3 newPos = new Vector3(.5f, .5f, 0f);
 		Vector3 onScreen = new Vector3(GUICamera.ViewportToScreenPoint(newPos).x ,GUICamera.ViewportToScreenPoint(newPos).y ,0f);
 		GameObject warning = Instantiate(tooltip, onScreen, Quaternion.identity);
@@ -103,8 +100,6 @@ public class MainMapTooltip : MonoBehaviour {
 	 //multi string/line input tooltip (each string of the input array is a new line)
 	 public void SetEvent(string[] texts){
 		isEvent = true;
-		NewTooltip();
-		HideTooltip();
 		NewTooltip();
 		//build up the tooltip line after line with the input
 		string tooltipText = "";
@@ -201,6 +196,7 @@ public class MainMapTooltip : MonoBehaviour {
 		 this.transform.parent.transform.position= new Vector3(GUICamera.ViewportToScreenPoint(newPos).x ,GUICamera.ViewportToScreenPoint(newPos).y ,0f);
 		 this.transform.parent.gameObject.SetActive(true);
 		 this.transform.parent.GetComponent<RectTransform>().pivot = new Vector2(.5f, .5f);
+		 bgImage.pivot = new Vector2(.5f, .5f);
 		 bgImage.transform.position = new Vector3(GUICamera.ViewportToScreenPoint(newPos).x ,GUICamera.ViewportToScreenPoint(newPos).y ,0f);
 		 inside = false;
 	 }
