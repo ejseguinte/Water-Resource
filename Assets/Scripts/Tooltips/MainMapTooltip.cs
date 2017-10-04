@@ -96,6 +96,7 @@ public class MainMapTooltip : MonoBehaviour {
 		Text textBox = warning.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>();
 		
 		textBox.text = text;
+		warning.transform.position = onScreen;
 		warning.transform.SetParent(this.transform.parent.parent);
 		
 	 }
@@ -129,7 +130,6 @@ public class MainMapTooltip : MonoBehaviour {
 
 		//call the position function
 		CenterScreen();
-		Debug.Log("New Event");
 	 }
 	 
 	 	//single string input tooltip
@@ -202,7 +202,7 @@ public class MainMapTooltip : MonoBehaviour {
 		 this.transform.parent.transform.position= new Vector3(GUICamera.ViewportToScreenPoint(newPos).x ,GUICamera.ViewportToScreenPoint(newPos).y ,0f);
 		 this.transform.parent.gameObject.SetActive(true);
 		 this.transform.parent.GetComponent<RectTransform>().pivot = new Vector2(.5f, .5f);
-		 
+		 bgImage.transform.position = new Vector3(GUICamera.ViewportToScreenPoint(newPos).x ,GUICamera.ViewportToScreenPoint(newPos).y ,0f);
 		 inside = false;
 	 }
 	 
@@ -316,7 +316,7 @@ public class MainMapTooltip : MonoBehaviour {
 		{
 			OnScreenSpaceCamera();
 		}
-		else
+		else if(isEvent)
 		{
 			this.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width/2, thisText.preferredHeight + verticalPadding);
 				bgImage.sizeDelta = new Vector2(Screen.width / 2, hlG.preferredHeight + verticalPadding);

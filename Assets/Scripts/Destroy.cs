@@ -15,8 +15,7 @@ public class Destroy : MonoBehaviour {
 	void Update () {
 		if(firstUpdate){
 			 firstUpdate=false;
-				
-				Text textBox = this.transform.GetChild(0).transform.GetChild(0).GetComponent<Text>();
+
 				RectTransform background = this.GetComponent<RectTransform>();
 				HorizontalLayoutGroup layout = this.transform.GetChild(0).GetComponent<HorizontalLayoutGroup>();
 

@@ -157,6 +157,11 @@ public class GameManager : MonoBehaviour
 		EventManager.AddEvent("ExtraFood");
 		EventManager.AddEvent("ExtraFood");
 		EventManager.AddEvent("ExtraFood");
+		EventManager.AddEvent("ExtraFood");
+		EventManager.AddEvent("ExtraFood");
+		EventManager.AddEvent("ExtraFood");
+		EventManager.AddEvent("ExtraFood");
+		EventManager.AddEvent("ExtraFood");
 		State = GameState.Event;
 		eventManager.SetNextEvent();
 		ResourceBeforeEffects();
@@ -629,7 +634,7 @@ public class GameManager : MonoBehaviour
 		}
 		else
 		{
-			//Debug.LogError("Groups not loaded properly. Missing: " + key);
+			Debug.LogError("Groups not loaded properly. Missing: " + key);
 		}
 		return true;
 	}
