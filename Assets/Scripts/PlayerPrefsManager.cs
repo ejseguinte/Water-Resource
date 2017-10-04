@@ -37,7 +37,7 @@ public class PlayerPrefsManager : MonoBehaviour {
 	#region Diffculty
 
 	public static void SetDifficulty (float difficulty){
-		if(difficulty >= 1f && difficulty < 3f){
+		if(difficulty >= 1f && difficulty <= 3f){
 			PlayerPrefs.SetFloat (DIFFICULTY_KEY, difficulty);
 		}else{
 			Debug.LogError ("Diffculty is out of Range. Tried to set Difficulty to: "+difficulty);

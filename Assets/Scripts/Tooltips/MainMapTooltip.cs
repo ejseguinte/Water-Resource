@@ -2,8 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 //From http://www.hammerandravens.com/multi-use-tooltip-system-in-unity3d/
-using System.Security.Cryptography.X509Certificates;
-using UnityEditor;
+
 public class MainMapTooltip : MonoBehaviour {
 
 	 public GameObject tooltip;
