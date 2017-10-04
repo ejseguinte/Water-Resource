@@ -15,7 +15,7 @@ public class PlayerPrefsManager : MonoBehaviour {
 	const string WARNING_KEY		= "warning";
 	const string KEEP_SCORE_KEY		= "keep_score";
 	const string TOOLTIP_KEY		= "tooltip";
-	const string LEVEL_KEY 			= "level_unlocked_";	//Example: "level_unlocked_01" for Level 1
+	const string LEVEL_KEY 			= "level_unlocked_";    //Example: "level_unlocked_01" for Level 1
 	
 	#region Master Volume
 
@@ -30,7 +30,7 @@ public class PlayerPrefsManager : MonoBehaviour {
 	}
 	
 	public static float GetMasterVolume (){
-		return PlayerPrefs.GetFloat (MASTER_VOLUME_KEY) * 100f;
+		return PlayerPrefs.GetFloat (MASTER_VOLUME_KEY, 80) * 100f;
 	}
 	#endregion
 	
@@ -45,7 +45,7 @@ public class PlayerPrefsManager : MonoBehaviour {
 	}
 	
 	public static int GetDifficulty (){
-		return Mathf.RoundToInt(PlayerPrefs.GetFloat (DIFFICULTY_KEY));
+		return Mathf.RoundToInt(PlayerPrefs.GetFloat (DIFFICULTY_KEY,2));
 	}
 	
 	#endregion
@@ -57,7 +57,7 @@ public class PlayerPrefsManager : MonoBehaviour {
 	}
 
 	public static int GetYear (){
-		return PlayerPrefs.GetInt(YEAR_KEY);
+		return PlayerPrefs.GetInt(YEAR_KEY,0);
 	}
 	#endregion
 
@@ -75,7 +75,7 @@ public class PlayerPrefsManager : MonoBehaviour {
 	}
 
 	public static bool GetKeepScore(){
-		int keepScore = PlayerPrefs.GetInt(KEEP_SCORE_KEY);
+		int keepScore = PlayerPrefs.GetInt(KEEP_SCORE_KEY,1);
 		if(keepScore == 1)	{
 			return true;
 		}else {
@@ -98,7 +98,7 @@ public class PlayerPrefsManager : MonoBehaviour {
 	}
 
 	public static bool GetTooltip(){
-		int tooltip = PlayerPrefs.GetInt(TOOLTIP_KEY);
+		int tooltip = PlayerPrefs.GetInt(TOOLTIP_KEY,1);
 		if(tooltip == 1)	{
 			return true;
 		}else {
@@ -107,7 +107,6 @@ public class PlayerPrefsManager : MonoBehaviour {
 	}
 	#endregion
 
-
 	#region Warning Life Span
 
 	public static void SetWarning (float value){
@@ -115,7 +114,7 @@ public class PlayerPrefsManager : MonoBehaviour {
 	}
 
 	public static float GetWarning(){
-		return PlayerPrefs.GetFloat(WARNING_KEY);
+		return PlayerPrefs.GetFloat(WARNING_KEY,2);
 	}
 	#endregion
 	

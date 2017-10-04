@@ -20,7 +20,6 @@ public class PanelInfo : MonoBehaviour {
 		percentGiven= this.transform.GetChild(1).gameObject.GetComponent<Text>();
 		MouserPointerHandler.mph.AddMouseTracker(this.gameObject,OnPointerEnter,OnPointerExit);
 		
-		
 	}
 
 	public void OnPointerEnter(GameObject hovered)
@@ -32,6 +31,7 @@ public class PanelInfo : MonoBehaviour {
 	{
 		GameManager.tooltip.HideTooltip();
 	}
+	
 	// Update is called once per frame
 	void Update () {
 		warningPanel.SetActive(!gameManager.CheckWaterAllocation(GroupName));

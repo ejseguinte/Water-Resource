@@ -19,7 +19,6 @@ public class EventLogController : MonoBehaviour {
 		foreach (Event name in events)
 		{
 			GameObject text = Instantiate(textbox) as GameObject;
-			Debug.Log(name.turn);
 			Text description = text.GetComponentInChildren<Text>();
 			description.text = name.guiName + "\n Turn: " + name.turn;
 			text.transform.SetParent(parent.transform);
