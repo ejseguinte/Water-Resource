@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.ComponentModel;
+using System.Linq;
 
 public class EventManager : MonoBehaviour {
 
 	#region Private Variables
 	EventManager eventManager;
-	public delegate void CurrentDelegate();
-	CurrentDelegate currentDelegate;
 	#endregion
 
 	#region Public Variables
-	public Queue<string> eventNames;
+	private static Queue<string> eventNames;
+	private static Stack<Event> previousEvents;
 	#endregion
 	// Use this for initialization
 	void Start()
@@ -27,13 +27,15 @@ public class EventManager : MonoBehaviour {
 			GameManager.eventManager = this;
 			eventManager = this;
 			eventNames = new Queue<string>();
+			if(previousEvents == null)
+				previousEvents = new Stack<Event>();
 		}
 		
 		
 		
 	}
 
-	public void AddEvent(string name)
+	public static void AddEvent(string name)
 	{	
 		eventNames.Enqueue(name);
 	}
@@ -48,7 +50,9 @@ public class EventManager : MonoBehaviour {
 		if (eventNames.Count > 0)
 		{
 			string name = eventNames.Dequeue();
-			SetEvent(name);
+			Event events = EventData.GetItem(name);
+			SetEvent(events);
+			previousEvents.Push(events);
 			return true;
 		}
 
@@ -56,19 +60,35 @@ public class EventManager : MonoBehaviour {
 
 	}
 	
-	private void SetEvent(string name){
+	private void SetEvent(Event name){
 		Event events = EventData.GetItem(name);
+		DisplayEvent(events);
+		events.InstantEffect();
+	}
+
+	private void DisplayEvent(Event events)
+	{
 		string[] text = { events.guiName, events.description};
 		GameManager.tooltip.SetEvent(text);
-		events.InstantEffect();
+	}
+	
+	public void DisplayEvent(string name)
+	{
+		Event events = EventData.GetItem(name);
+		DisplayEvent(events);
 	}
 
 	public void CloseEvent()
 	{
 		GameManager.EventDisplayed = false;
 		GameManager.tooltip.HideTooltip();
-		if(!SetNextEvent())
+		if(!SetNextEvent() && GameManager.State == GameManager.GameState.Event)
 			GameManager.gameManager.NextState();
 
+	}
+
+	public static Event[] GetPreviousEvents()
+	{
+		return previousEvents.ToArray();
 	}
 }
