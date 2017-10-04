@@ -52,7 +52,9 @@ public class EventManager : MonoBehaviour {
 			string name = eventNames.Dequeue();
 			Event events = EventData.GetItem(name);
 			SetEvent(events);
-			previousEvents.Push(events);
+			Event copy = events.Clone();
+			copy.turn = GameManager.turnCounter;
+			previousEvents.Push(copy);
 			return true;
 		}
 
@@ -60,8 +62,8 @@ public class EventManager : MonoBehaviour {
 
 	}
 	
-	private void SetEvent(Event name){
-		Event events = EventData.GetItem(name);
+	private void SetEvent(Event events){
+		//Event events = EventData.GetItem(name);
 		DisplayEvent(events);
 		events.InstantEffect();
 	}
