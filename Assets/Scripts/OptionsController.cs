@@ -3,7 +3,8 @@ using UnityEngine.UI;
 using System.Collections;
 
 public class OptionsController : MonoBehaviour {
-	
+
+	public Button mainMenu;
 	public Slider volume;
 	public Slider difficulty;
 	public Slider warningTime;
@@ -25,6 +26,11 @@ public class OptionsController : MonoBehaviour {
 		keepScore.isOn = PlayerPrefsManager.GetKeepScore();
 		tooltip.isOn = PlayerPrefsManager.GetTooltip();
 		year.value = PlayerPrefsManager.GetYear();
+
+		if (LevelManager.previousScreen == "01a Start Menu")
+		{
+			mainMenu.gameObject.SetActive(false);
+		}
 	}
 	
 	// Update is called once per frame
