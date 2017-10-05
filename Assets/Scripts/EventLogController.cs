@@ -16,17 +16,20 @@ public class EventLogController : MonoBehaviour {
 		events = EventManager.GetPreviousEvents();
 		float y = 0;
 		parent.transform.position = new Vector2(0, 0);
-		foreach (Event name in events)
+		if (events != null)
 		{
-			GameObject text = Instantiate(textbox) as GameObject;
-			Text description = text.GetComponentInChildren<Text>();
-			description.text = name.guiName + "\n Turn: " + name.turn;
-			text.transform.SetParent(parent.transform);
-			text.name = name.nameID;
-			y = y + text.transform.lossyScale.y;
-			Vector2 pos = new Vector2(text.transform.position.x, y);
-			text.transform.position = pos;
-			text.transform.localScale = new Vector3(1f, 1f, 1f);
+			foreach (Event name in events)
+			{
+				GameObject text = Instantiate(textbox) as GameObject;
+				Text description = text.GetComponentInChildren<Text>();
+				description.text = name.guiName + "\n Turn: " + name.turn;
+				text.transform.SetParent(parent.transform);
+				text.name = name.nameID;
+				y = y + text.transform.lossyScale.y;
+				Vector2 pos = new Vector2(text.transform.position.x, y);
+				text.transform.position = pos;
+				text.transform.localScale = new Vector3(1f, 1f, 1f);
+			}
 		}
 		
 	}

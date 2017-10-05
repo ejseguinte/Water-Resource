@@ -19,6 +19,9 @@ public class Fade : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if(Time.timeSinceLevelLoad < fadeInTime){
+			Vector3 newPos = new Vector3(0f, 0f, 0f);
+			fadePanel.transform.position = newPos;
+			
 			float alphaChange = Time.deltaTime / fadeInTime;
 			currentColor.a -= alphaChange;
 			fadePanel.color = currentColor;

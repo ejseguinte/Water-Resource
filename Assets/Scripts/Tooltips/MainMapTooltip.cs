@@ -314,8 +314,8 @@ public class MainMapTooltip : MonoBehaviour {
 		else if(isEvent)
 		{
 			CenterScreen();
-			this.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width/2, thisText.preferredHeight + verticalPadding);
-				bgImage.sizeDelta = new Vector2(Screen.width / 2, hlG.preferredHeight + verticalPadding);
+			this.GetComponent<RectTransform>().sizeDelta = new Vector2((Screen.width / 3) * 2, thisText.preferredHeight + verticalPadding);
+				bgImage.sizeDelta = new Vector2((Screen.width / 3) * 2, hlG.preferredHeight + verticalPadding);
 		}
 	 }
 	 
@@ -326,8 +326,8 @@ public class MainMapTooltip : MonoBehaviour {
 			
 			if (isEvent)
 			{
-				this.GetComponent<RectTransform>().sizeDelta = new Vector2(Screen.width/2, thisText.preferredHeight + verticalPadding);
-				bgImage.sizeDelta = new Vector2(Screen.width / 2, hlG.preferredHeight + verticalPadding);
+				this.GetComponent<RectTransform>().sizeDelta = new Vector2((Screen.width / 3) * 2, thisText.preferredHeight + verticalPadding);
+				bgImage.sizeDelta = new Vector2((Screen.width / 3) * 2, hlG.preferredHeight + verticalPadding);
 				GameManager.EventDisplayed = true;
 			}
 			else
