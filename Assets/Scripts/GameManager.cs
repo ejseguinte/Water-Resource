@@ -154,17 +154,14 @@ public class GameManager : MonoBehaviour
 
 	private void EndAllocation()
 	{
-		EventManager.AddEvent("ExtraFood");
-		EventManager.AddEvent("ExtraFood");
-		EventManager.AddEvent("ExtraFood");
-		EventManager.AddEvent("ExtraFood");
-		EventManager.AddEvent("ExtraFood");
-		EventManager.AddEvent("ExtraFood");
-		EventManager.AddEvent("ExtraFood");
-		EventManager.AddEvent("ExtraFood");
+		eventManager.GetEvents();
 		State = GameState.Event;
-		eventManager.SetNextEvent();
 		ResourceBeforeEffects();
+		if (!eventManager.SetNextEvent())
+		{
+			EndEvent();
+		}
+			
 		
 	}
 
@@ -200,7 +197,6 @@ public class GameManager : MonoBehaviour
 	}
 	
 	#endregion
-
 
 	#region Pause Methods
 
@@ -660,19 +656,19 @@ public class GameManager : MonoBehaviour
 	//Called after ResourceAfterEffects
 	private static void UpdateResources()
 	{
-		//if (happiness == 0) happiness = 1;
-		happiness *= happinessMultiplier;
-		//if (money == 0) money = 1;
-		money *= moneyMultiplier;
-		//if (population == 0) population = 1;
-		population *= populationMultiplier;
-		//if (farms == 0) farms = 1;
-		farms *= farmsMultiplier;
+		if (happinessMultiplier > 0 || happinessMultiplier < 0)
+			happiness *= happinessMultiplier;
+		if (moneyMultiplier > 0 || moneyMultiplier < 0)
+			money *= moneyMultiplier;
+		if (populationMultiplier > 0 || populationMultiplier < 0) 
+			population *= populationMultiplier;
+		if (farmsMultiplier > 0 || farmsMultiplier < 0)
+			farms *= farmsMultiplier;
 	}
 
 	private static void ResourceBeforeEffects()
 	{
-		food += (Population * Difficulty.FoodRequriedCoefficient()) * -1;
+		ConsumeFood();
 		//Checks to see if there is enough food
 		if (food < 0)
 		{
@@ -693,11 +689,29 @@ public class GameManager : MonoBehaviour
 
 	private static void NotEnoughFood()
 	{
-
-		populationEffect += (food / Difficulty.FoodRequriedCoefficient());
-		HappinessEffect += (food/ Difficulty.FoodRequriedCoefficient());
+		Event starve = EventData.GetItem("Starvation");
+		starve.guiName = "Starvation";
+		starve.populationEffect = Mathf.RoundToInt(food / Difficulty.FoodRequriedCoefficient());
 		populationMultiplier = 1f;
-		Debug.Log("Starvation has Occured. Population reduced by: " + populationEffect);
+		starve.happinessEffect = Mathf.RoundToInt(food/ Difficulty.FoodRequriedCoefficient());
+		starve.description = "Population has starved to death. \nDeath Tool: " + (starve.populationEffect * -1) + "M";
+		EventManager.AddEvent("Starvation");
+	}
+
+	private static void ConsumeFood()
+	{
+		Event starve = EventData.GetItem("Consume");
+		starve.guiName = "Consume Food";
+		food += Mathf.RoundToInt((Population * Difficulty.FoodRequriedCoefficient()) * -1);
+		float foodConsumed;
+		if(food < 0)
+			foodConsumed = food + Mathf.RoundToInt((Population * Difficulty.FoodRequriedCoefficient()));
+		else
+		{
+			foodConsumed = Mathf.RoundToInt((Population * Difficulty.FoodRequriedCoefficient()));
+		}
+		starve.description = "Population has consumed " + Mathf.RoundToInt(foodConsumed) + " Food";
+		EventManager.AddEvent("Consume");
 	}
 
 	

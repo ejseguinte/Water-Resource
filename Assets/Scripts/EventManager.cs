@@ -64,7 +64,6 @@ public class EventManager : MonoBehaviour {
 	}
 	
 	private void SetEvent(Event events){
-		//Event events = EventData.GetItem(name);
 		DisplayEvent(events);
 		events.InstantEffect();
 	}
@@ -93,5 +92,15 @@ public class EventManager : MonoBehaviour {
 	public static Event[] GetPreviousEvents()
 	{
 		return previousEvents.ToArray();
+	}
+
+	public void GetEvents()
+	{
+		//TODO Pick how Events are Added
+		//AddEvent("ExtraFood");
+		//AddEvent("ExtraFood");
+		//AddEvent("ExtraFood");
+		//AddEvent("ExtraFood");
+		//AddEvent("ExtraFood");
 	}
 }

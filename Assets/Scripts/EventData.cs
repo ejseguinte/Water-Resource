@@ -20,6 +20,43 @@ public class EventData{
 		};
 
 		_table.Add(newGroup.nameID, newGroup);
+
+		newGroup = new Event()
+		{
+			//This Event is set in GameManager
+			nameID = "Starvation",
+			guiName = "Starvation",
+			description = "Population has starved.",
+			turn = 0,
+			happinessEffect = 0,
+			happinessMultiplier = 0,
+			foodEffect = 0,
+			foodMultiplier = 0,
+			populationEffect = 0,
+			populationMultiplier = 0
+			
+		};
+
+		_table.Add(newGroup.nameID, newGroup);
+		
+		newGroup = new Event()
+		{	
+			//This Event is set in GameManager
+			nameID = "Consume",
+			guiName = "Consume Food",
+			description = "Population has starved.",
+			turn = 0,
+			happinessEffect = 0,
+			happinessMultiplier = 0,
+			foodEffect = 0,
+			foodMultiplier = 0,
+			populationEffect = 0,
+			populationMultiplier = 0
+			
+		};
+
+		_table.Add(newGroup.nameID, newGroup);
+		
 	}
 
 	public static Event GetItem(string name){
@@ -45,13 +82,21 @@ public class Event
 	public string guiName;
 	public string description;
 	public int turn;
+	public float happinessEffect;
+	public float happinessMultiplier;
 	public float foodEffect;
 	public float foodMultiplier;
+	public float populationEffect;
+	public float populationMultiplier;
 
 	public void InstantEffect()
 	{
+		GameManager.Happiness += happinessEffect;
+		GameManager.HappinessMultiplier += happinessMultiplier;
 		GameManager.Food += foodEffect;
 		GameManager.FoodMultiplier += foodMultiplier;
+		GameManager.PopulationEffect += populationEffect;
+		GameManager.PopulationMultiplier += populationMultiplier;
 	}
 
 	public Event Clone()
@@ -62,7 +107,12 @@ public class Event
 			guiName = this.guiName,
 			description = this.description,
 			turn = this.turn,
-			foodMultiplier = this.foodMultiplier
+			happinessEffect = this.happinessEffect,
+			happinessMultiplier = this.happinessMultiplier,
+			foodEffect = this.foodEffect,
+			foodMultiplier = this.foodMultiplier,
+			populationEffect = this.populationEffect,
+			populationMultiplier = this.populationMultiplier
 			
 		};
 		return newGroup;

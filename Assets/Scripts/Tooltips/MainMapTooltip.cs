@@ -113,7 +113,7 @@ public class MainMapTooltip : MonoBehaviour {
 			}
 			else
 			{
-				tooltipText += ("\n" + newLine);
+				tooltipText += ("\n\n" + newLine);
 			}
 			index++;
 		}
