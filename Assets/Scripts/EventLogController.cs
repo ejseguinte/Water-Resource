@@ -22,6 +22,7 @@ public class EventLogController : MonoBehaviour {
 			{
 				GameObject text = Instantiate(textbox) as GameObject;
 				Text description = text.GetComponentInChildren<Text>();
+				text.GetComponent<EventHolder>().eventName = name;
 				description.text = name.guiName + "\n Turn: " + name.turn;
 				text.transform.SetParent(parent.transform);
 				text.name = name.nameID;
@@ -44,8 +45,7 @@ public class EventLogController : MonoBehaviour {
 
 	public void DisplayEvent()
 	{
-		string name = EventSystem.current.currentSelectedGameObject.name;
-		GameManager.eventManager.DisplayEvent(name);
+		GameManager.eventManager.DisplayEvent(EventSystem.current.currentSelectedGameObject.GetComponent<EventHolder>().eventName);
 	}
 	
 }

@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour
 	void OnEnable()
 	{
 		turnCounter = 1;
+		SceneManager.activeSceneChanged += DestroyOnMenuScreen;
 	}
 
 	void Awake()
@@ -78,7 +79,6 @@ public class GameManager : MonoBehaviour
 			ResetResources();
 			GameObject.DontDestroyOnLoad(gameObject);
 		}
-		SceneManager.activeSceneChanged += DestroyOnMenuScreen;
 	}
 
 	void DestroyOnMenuScreen(Scene oldScene, Scene newScene)
@@ -149,6 +149,10 @@ public class GameManager : MonoBehaviour
 					levelManager.LoadLevel("01a Start Menu");
 					break;
 			}
+		}
+		else if (eventDisplayed == true)
+		{
+			eventManager.CloseEvent();
 		}
 	}
 

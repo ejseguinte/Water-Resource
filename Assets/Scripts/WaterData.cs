@@ -6,11 +6,11 @@ using UnityEngine;
 public class WaterData
 {
 
-	private static Dictionary<string, float[]> _table = new Dictionary<string, float[]>(); //Key is Year and Month ie 201701: January of 2017
+	private static Dictionary<string, float[]> _table = new Dictionary<string, float[]>(); //Key is Year and Month ie 2017: January of 2017
 
 	public static void LoadItemsData()
 	{
-		float[] water = new float[12];
+		float[] water = new float[13];
 		for (int i = 0; i < water.Length; i++)
 		{
 			water[i] = Mathf.RoundToInt(Random.Range(800, 1200));
@@ -24,7 +24,7 @@ public class WaterData
 		{
 			LoadItemsData();
 		}
-		float[] temp = new float[12];
+		float[] temp = new float[13];
 		if (_table.TryGetValue(name, out temp))
 		{
 			return temp;
