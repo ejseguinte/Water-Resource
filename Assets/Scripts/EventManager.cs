@@ -68,7 +68,7 @@ public class EventManager : MonoBehaviour {
 		events.InstantEffect();
 	}
 
-	private void DisplayEvent(Event events)
+	public void DisplayEvent(Event events)
 	{
 		string[] text = { events.guiName, events.description};
 		GameManager.tooltip.SetEvent(text);

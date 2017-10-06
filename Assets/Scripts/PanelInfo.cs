@@ -51,15 +51,29 @@ public class PanelInfo : MonoBehaviour {
 			{
 				percent = group.waterGiven / group.waterRecommended * 100;
 			}
-			
+
 			percent = Mathf.RoundToInt(percent);
-			if (percent < 100)
+			if (GroupName == "Market")
 			{
-				percentGiven.color = Color.red;
+				if (percent <= 0)
+				{
+					percentGiven.color = Color.green;
+				}
+				else if (percent > 0)
+				{
+					percentGiven.color = Color.red;
+				}
 			}
-			else if (percent >= 100)
+			else
 			{
-				percentGiven.color = Color.green;
+				if (percent < 100)
+				{
+					percentGiven.color = Color.red;
+				}
+				else if (percent >= 100)
+				{
+					percentGiven.color = Color.green;
+				}
 			}
 
 		}
