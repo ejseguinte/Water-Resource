@@ -11,8 +11,8 @@ public class GroupData{
 	public static void LoadItemsData(){
 		Group newGroup = new Group()
 		{
-			nameID = "Urban",
-			guiName = "Urban",
+			nameID = "Domestic",
+			guiName = "Domestic",
 			waterNeed = .35f,
 			recommendedWater = .25f,
 			description = "Urban Youth need water to live.",
@@ -31,8 +31,8 @@ public class GroupData{
 		
 		Group newGroup1 = new Group()
 		{
-			nameID = "Agriculture",
-			guiName = "Agriculture",
+			nameID = "Commercial",
+			guiName = "Commercial",
 			waterNeed = .35f,
 			recommendedWater = .25f,
 			description = "Water has what plants crave.",
@@ -51,8 +51,8 @@ public class GroupData{
 		
 		Group newGroup2 = new Group()
 		{
-			nameID = "Recreational",
-			guiName = "Recreational",
+			nameID = "Industrial",
+			guiName = "Industrial",
 			waterNeed = .35f,
 			recommendedWater = .25f,
 			description = "Hikers need water to raft and to live.",
@@ -71,8 +71,50 @@ public class GroupData{
 		
 		Group newGroup3 = new Group()
 		{
-			nameID = "Test",
-			guiName = "Test",
+			nameID = "Livestock",
+			guiName = "Livestock",
+			waterNeed = .35f,
+			recommendedWater = .25f,
+			description = "Test",
+			effectID1 = "Happiness",
+			effectMultiplier1 = .4f,
+			effectID2 = "Population",
+			effectMultiplier2 = -.1f,
+			effectID3 = "Food Growth",
+			effectMultiplier3 = .3f,
+			effectID4 = "Income",
+			effectMultiplier4 = -.09f
+			
+			
+		};
+
+		_table.Add(newGroup3.nameID, newGroup3);
+		
+		newGroup3 = new Group()
+		{
+			nameID = "Crops",
+			guiName = "Crops",
+			waterNeed = .35f,
+			recommendedWater = .25f,
+			description = "Test",
+			effectID1 = "Happiness",
+			effectMultiplier1 = .4f,
+			effectID2 = "Population",
+			effectMultiplier2 = -.1f,
+			effectID3 = "Food Growth",
+			effectMultiplier3 = .3f,
+			effectID4 = "Income",
+			effectMultiplier4 = -.09f
+			
+			
+		};
+
+		_table.Add(newGroup3.nameID, newGroup3);
+		
+		newGroup3 = new Group()
+		{
+			nameID = "Golf Courses",
+			guiName = "Golf Courses",
 			waterNeed = .35f,
 			recommendedWater = .25f,
 			description = "Test",
