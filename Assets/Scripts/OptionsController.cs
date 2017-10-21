@@ -56,7 +56,6 @@ public class OptionsController : MonoBehaviour {
 		PlayerPrefsManager.SetKeepScore(keepScore.isOn);
 		PlayerPrefsManager.SetToolTip(tooltip.isOn);
 		PlayerPrefsManager.SetYear(year.value);
-		
 		if(musicManager){
 			musicManager.SetVolume(volume.value);
 		}

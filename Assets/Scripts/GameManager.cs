@@ -530,6 +530,7 @@ public class GameManager : MonoBehaviour
 	#region Water Need Functions
 	private void LoadWater()
 	{
+		Debug.Log("Water Loaded: " + PlayerPrefsManager.GetYear());
 		actualWaterArray = WaterData.GetItem(PlayerPrefsManager.GetYear().ToString());
 	}
 
