@@ -113,7 +113,7 @@ public class WaterSlider : MonoBehaviour {
 		effect2.value = (waterSlider.value - offset) * group.effectMultiplier2;
 		effect3.value = (waterSlider.value - offset) * group.effectMultiplier3;
 		effect4.value = (waterSlider.value - offset) * group.effectMultiplier4;
-		waterAmount.text = Mathf.RoundToInt(waterSlider.value * water.waterNeeded).ToString()+"M";
+		waterAmount.text = Mathf.RoundToInt(waterSlider.value * water.waterNeeded).ToString()+"AF";
 		if (Mathf.RoundToInt(waterSlider.value * water.waterNeeded) < water.waterRecommended)
 		{
 			waterAmount.color = Color.red;
