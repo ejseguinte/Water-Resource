@@ -66,26 +66,26 @@ public class WaterSlider : MonoBehaviour {
 		}
 		GameManager.RemainingWater = GameManager.TotalWater - GameManager.ExpendedWater;
 		
-		maxWater.text = water.waterNeeded.ToString() + "M";
+		maxWater.text = water.waterNeeded.ToString() + "AF";
 		if (group.recommendedWater <= 0)
 		{
 			//Seperate Text for the Market 
 			float money = Mathf.RoundToInt(GameManager.Money * effect4.value);
-			waterDescription.text = "Max Sellable Water: "  + water.waterNeeded.ToString() + "M\n" + "Money gained: " + money + "M";
+			waterDescription.text = "Max Sellable Water: "  + water.waterNeeded.ToString() + "AF\n" + "Money gained: " + money + "M";
 		}	
 		else
 		{
-			waterDescription.text = "Minimum water needed: " + water.waterRecommended.ToString() + "M\n" + "Total water needed: "  + water.waterNeeded.ToString() + "M";
+			waterDescription.text = "Minimum water needed: " + water.waterRecommended.ToString() + "AF\n" + "Total water needed: "  + water.waterNeeded.ToString() + "M";
 		}
 		
 		offset = water.waterRecommended / water.waterNeeded;
 		if (water.waterGiven < 0)		//If the water has been allocated yet
 		{
 			waterSlider.value = offset;
-			waterAmount.text = water.waterRecommended.ToString()+"M";
+			waterAmount.text = water.waterRecommended.ToString()+"AF";
 		}else{
 			waterSlider.value = water.waterGiven / water.waterNeeded;
-			waterAmount.text = water.waterGiven.ToString()+"M";
+			waterAmount.text = water.waterGiven.ToString()+"AF";
 			if (Mathf.RoundToInt(waterSlider.value * water.waterNeeded) < water.waterRecommended)
 			{
 				waterAmount.color = Color.red;

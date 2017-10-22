@@ -13,8 +13,8 @@ public class GroupData{
 		{
 			nameID = "Domestic",
 			guiName = "Domestic",
-			waterNeed = .35f,
-			recommendedWater = .25f,
+			waterNeed = .25f,
+			recommendedWater = 14554.16667f,
 			description = "Urban Youth need water to live.",
 			effectID1 = "Happiness",
 			effectMultiplier1 = .4f,
@@ -33,8 +33,8 @@ public class GroupData{
 		{
 			nameID = "Commercial",
 			guiName = "Commercial",
-			waterNeed = .35f,
-			recommendedWater = .25f,
+			waterNeed = .25f,
+			recommendedWater = 115552.8333f,
 			description = "Water has what plants crave.",
 			effectID1 = "Happiness",
 			effectMultiplier1 = .4f,
@@ -53,8 +53,8 @@ public class GroupData{
 		{
 			nameID = "Industrial",
 			guiName = "Industrial",
-			waterNeed = .35f,
-			recommendedWater = .25f,
+			waterNeed = .25f,
+			recommendedWater = 74789.66667f,
 			description = "Hikers need water to raft and to live.",
 			effectID1 = "Happiness",
 			effectMultiplier1 = .4f,
@@ -73,8 +73,8 @@ public class GroupData{
 		{
 			nameID = "Livestock",
 			guiName = "Livestock",
-			waterNeed = .35f,
-			recommendedWater = .25f,
+			waterNeed = .25f,
+			recommendedWater = 31423.16667f,
 			description = "Test",
 			effectID1 = "Happiness",
 			effectMultiplier1 = .4f,
@@ -94,8 +94,8 @@ public class GroupData{
 		{
 			nameID = "Crops",
 			guiName = "Crops",
-			waterNeed = .35f,
-			recommendedWater = .25f,
+			waterNeed = .25f,
+			recommendedWater = 2804821.167f,
 			description = "Test",
 			effectID1 = "Happiness",
 			effectMultiplier1 = .4f,
@@ -115,8 +115,8 @@ public class GroupData{
 		{
 			nameID = "Golf Courses",
 			guiName = "Golf Courses",
-			waterNeed = .35f,
-			recommendedWater = .25f,
+			waterNeed = .25f,
+			recommendedWater = 14554.16667f,
 			description = "Test",
 			effectID1 = "Happiness",
 			effectMultiplier1 = .4f,
@@ -183,8 +183,8 @@ public class Group
 	public enum PolicyType{Agriculture,Urban,Recreational,Ecology};
 	public string nameID;
 	public string guiName;
-	public float waterNeed;				//How much of the Total water for the turn they need Maximum
-	public float recommendedWater;		//How much of the Total water for the turn they need minimum with no adverse effects
+	public float waterNeed;				//Total Water the group needs
+	public float recommendedWater;		//multiplier to add to 1 to decide Max water
 	public string description;
 	public string effectID1;
 	public float effectMultiplier1;

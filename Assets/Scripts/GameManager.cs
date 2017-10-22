@@ -576,16 +576,16 @@ public class GameManager : MonoBehaviour
 			GroupWater temp = null;
 			if (_table.TryGetValue(key, out temp))
 			{
-				temp.waterRecommended = Mathf.RoundToInt(totalWater * GroupData.GetItem(key).recommendedWater);
-				temp.waterNeeded = Mathf.RoundToInt(totalWater * GroupData.GetItem(key).waterNeed);
+				temp.waterRecommended = Mathf.RoundToInt(GroupData.GetItem(key).recommendedWater);
+				temp.waterNeeded = Mathf.RoundToInt((1 + GroupData.GetItem(key).waterNeed) * temp.waterRecommended);
 				temp.waterGiven = -1f;
 			}
 			else
 			{
 				temp = new GroupWater()
 				{
-					waterRecommended = Mathf.RoundToInt(totalWater * GroupData.GetItem(key).recommendedWater),
-					waterNeeded = Mathf.RoundToInt(totalWater * GroupData.GetItem(key).waterNeed),
+					waterRecommended = Mathf.RoundToInt(GroupData.GetItem(key).recommendedWater),
+					waterNeeded = Mathf.RoundToInt((1 + GroupData.GetItem(key).waterNeed) * GroupData.GetItem(key).recommendedWater),
 					waterGiven = -1f
 				};
 				_table.Add(key, temp);

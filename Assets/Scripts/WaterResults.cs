@@ -12,11 +12,11 @@ public class WaterResults : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		float[] waterArray = GameManager.ActualWaterArray;
-		RemainingWater.text = GameManager.RemainingWater.ToString() + "M";
-		EstimatedWater.text = GameManager.EstimateWater.ToString() + "M";
-		ActualAmount.text = waterArray[GameManager.turnCounter].ToString() + "M";
+		RemainingWater.text = GameManager.RemainingWater.ToString() + "AF";
+		EstimatedWater.text = GameManager.EstimateWater.ToString() + "AF";
+		ActualAmount.text = waterArray[GameManager.turnCounter].ToString() + "AF";
 		setColor(ActualAmount, waterArray[GameManager.turnCounter], GameManager.EstimateWater);
-		TotalAmount.text = (waterArray[GameManager.turnCounter] + GameManager.RemainingWater).ToString() + "M";
+		TotalAmount.text = (waterArray[GameManager.turnCounter] + GameManager.RemainingWater).ToString() + "AF";
 	}
 	
 	// Update is called once per frame
