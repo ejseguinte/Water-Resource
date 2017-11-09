@@ -34,5 +34,9 @@ public class ResrouceDisplay : MonoBehaviour
 		populationValue.text = GameManager.Population.ToString()+"M";
 		farmValue.text = GameManager.Farms.ToString()+"M";
 	}
+	
+	public void Updates(){
+		Update();
+	}
 	#endregion 
 }

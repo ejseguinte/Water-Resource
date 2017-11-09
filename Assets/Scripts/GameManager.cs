@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 	public static GameManager gameManager = null;
 	public static MainMapTooltip tooltip;
 	public static EventManager eventManager;
+	public static PolicyManager policyManager;
 	#endregion
 
 	#region Public Variables
@@ -171,6 +172,7 @@ public class GameManager : MonoBehaviour
 
 	private void EndEvent()
 	{
+		PolicyManager.ApplyPolicy();
 		State = GameState.End;
 		levelManager = GameObject.FindObjectOfType<LevelManager>() as LevelManager;
 		levelManager.LoadLevel("02b Game Report");
@@ -530,7 +532,6 @@ public class GameManager : MonoBehaviour
 	#region Water Need Functions
 	private void LoadWater()
 	{
-		Debug.Log("Water Loaded: " + PlayerPrefsManager.GetYear());
 		actualWaterArray = WaterData.GetItem(PlayerPrefsManager.GetYear().ToString());
 	}
 
