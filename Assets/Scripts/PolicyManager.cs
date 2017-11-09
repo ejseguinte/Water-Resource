@@ -53,7 +53,7 @@ public class PolicyManager : MonoBehaviour {
 	
 	public static void RemovePolicy(Policy currentPolicy){
 		Queue<Policy> temp = new Queue<Policy>();
-		while(policyNames.Count > 0){
+		while(policyNames.Count() > 0){
 			Policy current = policyNames.Dequeue();
 			if(current != currentPolicy){
 				temp.Enqueue(current);
@@ -62,10 +62,22 @@ public class PolicyManager : MonoBehaviour {
 
 		policyNames = temp;
 	}
-	
-	public static void ApplyPolicy(){
-		foreach (Policy current in policyNames){
-			current.InstantEffect();
+
+	public static void ApplyPolicy()
+	{
+		if (policyNames != null && policyNames.Count() > 0){
+			foreach (Policy current in policyNames)
+			{
+				if (current.counter >= current.duration - 1)
+				{
+					PolicyManager.RemovePolicy(current);
+				}
+				else
+				{
+					current.counter += 1;
+					current.InstantEffect();
+				}
+			}
 		}
 	}
 	

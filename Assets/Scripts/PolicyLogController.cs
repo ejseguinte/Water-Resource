@@ -58,6 +58,14 @@ public class PolicyLogController : MonoBehaviour {
 		{
 			parent.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, parent.GetComponent<VerticalLayoutGroup>().preferredHeight);
 		}
+
+		if (currentPolicy.purchased == false){
+			button.GetComponentInChildren<Text>().text = "Purchase";
+		}else if(currentPolicy.purchased == true && currentPolicy.counter == 0){
+			button.GetComponentInChildren<Text>().text = "Sell";
+		}else{
+			button.SetActive(false);
+		}
 		
 	}
 
