@@ -472,7 +472,11 @@ public class GameManager : MonoBehaviour
 
 		set
 		{
+			
 			populationEffect = value;
+			if(populationEffect < (population * -1)){
+				populationEffect = population * -1;
+			}
 		}
 	}
 
