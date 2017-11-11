@@ -15,7 +15,6 @@ public class WaterData
 		{
 			water[i] = Mathf.RoundToInt(Random.Range(2725469, 3919502));
 			water[i] = Mathf.RoundToInt(water[i] * Random.Range(.8f, 1.2f));
-			Debug.Log(water[i]);
 		}
 		_table.Add("0", water);
 

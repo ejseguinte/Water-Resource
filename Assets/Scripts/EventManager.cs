@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -96,8 +96,95 @@ public class EventManager : MonoBehaviour {
 
 	public void GetEvents()
 	{
+		float domBadProb = (GameManager.GetItem ("Domestic").waterNeeded - GameManager.GetItem ("Domestic").waterGiven) / GameManager.GetItem ("Domestic").waterNeeded;
+		float domGoodProb = (GameManager.GetItem ("Domestic").waterGiven - GameManager.GetItem ("Domestic").waterNeeded) / GameManager.GetItem ("Domestic").waterNeeded;
+		Debug.Log (domBadProb);
+		Debug.Log (domGoodProb);
+
+		float cropBadProb = (GameManager.GetItem ("Crops").waterNeeded - GameManager.GetItem ("Crops").waterGiven) / GameManager.GetItem ("Crops").waterNeeded;
+		float cropGoodProb = (GameManager.GetItem ("Crops").waterGiven - GameManager.GetItem ("Crops").waterNeeded) / GameManager.GetItem ("Crops").waterNeeded;
+
+		float livestockBadProb = (GameManager.GetItem ("Livestock").waterNeeded - GameManager.GetItem ("Livestock").waterGiven) / GameManager.GetItem ("Livestock").waterNeeded;
+		float livestockGoodProb = (GameManager.GetItem ("Livestock").waterGiven - GameManager.GetItem ("Livestock").waterNeeded) / GameManager.GetItem ("Livestock").waterNeeded;
+
+		float comBadProb = (GameManager.GetItem ("Commercial").waterNeeded - GameManager.GetItem ("Commercial").waterGiven) / GameManager.GetItem ("Commercial").waterNeeded;
+		float comGoodProb = (GameManager.GetItem ("Commercial").waterGiven - GameManager.GetItem ("Commercial").waterNeeded) / GameManager.GetItem ("Commercial").waterNeeded;
+
+		float indBadProb = (GameManager.GetItem ("Industrial").waterNeeded - GameManager.GetItem ("Industrial").waterGiven) / GameManager.GetItem ("Industrial").waterNeeded;
+		float indGoodProb = (GameManager.GetItem ("Industrial").waterGiven - GameManager.GetItem ("Industrial").waterNeeded) / GameManager.GetItem ("Industrial").waterNeeded;
+
+		float golfBadProb = (GameManager.GetItem ("Golf Courses").waterNeeded - GameManager.GetItem ("Golf Courses").waterGiven) / GameManager.GetItem ("Golf Courses").waterNeeded;
+		float golfGoodProb = (GameManager.GetItem ("Golf Courses").waterGiven - GameManager.GetItem ("Golf Courses").waterNeeded) / GameManager.GetItem ("Golf Courses").waterNeeded;
+
+		float diceRoll;
+
+		if (domGoodProb > 0f) {
+			diceRoll = UnityEngine.Random.Range(0.0f,1.0f);
+			if (diceRoll <= domGoodProb)
+				AddEvent ("DomesticPositive");
+		}
+		if (domBadProb > 0f) {
+			diceRoll = UnityEngine.Random.Range(0.0f,1.0f);
+			if (diceRoll <= domBadProb)
+				AddEvent ("DomesticNegative");
+		}
+
+		if (cropGoodProb > 0f) {
+			diceRoll = UnityEngine.Random.Range(0.0f,1.0f);
+			if (diceRoll <= cropGoodProb)
+				AddEvent ("CropsPositive");
+		}
+		if (cropBadProb > 0f) {
+			diceRoll = UnityEngine.Random.Range(0.0f,1.0f);
+			if (diceRoll <= cropBadProb)
+				AddEvent ("CropsNegative");
+		}
+
+		if (livestockGoodProb > 0f) {
+			diceRoll = UnityEngine.Random.Range(0.0f,1.0f);
+			if (diceRoll <= livestockGoodProb)
+				AddEvent ("LivestockPositive");
+		}
+		if (livestockBadProb > 0f) {
+			diceRoll = UnityEngine.Random.Range(0.0f,1.0f);
+			if (diceRoll <= livestockBadProb)
+				AddEvent ("LivestockNegative");
+		}
+
+		if (comGoodProb > 0f) {
+			diceRoll = UnityEngine.Random.Range(0.0f,1.0f);
+			if (diceRoll <= comGoodProb)
+				AddEvent ("CommercialPositive");
+		}
+		if (comBadProb > 0f) {
+			diceRoll = UnityEngine.Random.Range(0.0f,1.0f);
+			if (diceRoll <= comBadProb)
+				AddEvent ("CommercialNegative");
+		}
+
+		if (indGoodProb > 0f) {
+			diceRoll = UnityEngine.Random.Range(0.0f,1.0f);
+			if (diceRoll <= indGoodProb)
+				AddEvent ("IndustrialPositive");
+		}
+		if (indBadProb > 0f) {
+			diceRoll = UnityEngine.Random.Range(0.0f,1.0f);
+			if (diceRoll <= indBadProb)
+				AddEvent ("IndustrialNegative");
+		}
+
+		if (golfGoodProb > 0f) {
+			diceRoll = UnityEngine.Random.Range(0.0f,1.0f);
+			if (diceRoll <= golfGoodProb)
+				AddEvent ("GolfCoursePositive");
+		}
+		if (golfBadProb > 0f) {
+			diceRoll = UnityEngine.Random.Range(0.0f,1.0f);
+			if (diceRoll <= golfBadProb)
+				AddEvent ("GolfCourseNegative");
+		}
+
 		//TODO Pick how Events are Added
-		//AddEvent("ExtraFood");
 		//AddEvent("ExtraFood");
 		//AddEvent("ExtraFood");
 		//AddEvent("ExtraFood");

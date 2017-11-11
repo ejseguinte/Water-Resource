@@ -12,6 +12,9 @@ public class PolicyLogController : MonoBehaviour {
 	public Transform parent;
 	public Text title;
 	public Text body;
+	public GameObject button;
+	public Text cost;
+	public Policy currentPolicy;
 
 	private Array policies;
 	// Use this for initialization
@@ -20,6 +23,13 @@ public class PolicyLogController : MonoBehaviour {
 		policies = PolicyData.GetKeys();
 		float y = 0;
 		parent.transform.position = new Vector2(0, 0);
+		Debug.Log(currentPolicy);
+		if(currentPolicy.nameID == ""){
+			button.SetActive(false);
+		}
+		if(cost.text == "Cost: $99999999"){
+			cost.enabled = false;
+		}
 		if (policies != null)
 		{
 			foreach (string policyName in policies)
@@ -43,17 +53,34 @@ public class PolicyLogController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		
 		if (parent.GetComponent<VerticalLayoutGroup>().preferredHeight > parent.GetComponent<RectTransform>().sizeDelta.y)
 		{
 			parent.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, parent.GetComponent<VerticalLayoutGroup>().preferredHeight);
 		}
+
+		if (currentPolicy.purchased == false){
+			button.GetComponentInChildren<Text>().text = "Purchase";
+		}else if(currentPolicy.purchased == true && currentPolicy.counter == 0){
+			button.GetComponentInChildren<Text>().text = "Sell";
+		}else{
+			button.SetActive(false);
+		}
+		
 	}
 
 	public void DisplayPolicy()
 	{
-		Policy temp = PolicyData.GetItem(EventSystem.current.currentSelectedGameObject.name);
-		title.text = temp.guiName;
-		body.text = temp.description;
+		currentPolicy = PolicyData.GetItem(EventSystem.current.currentSelectedGameObject.name);
+		title.text = currentPolicy.guiName;
+		body.text = currentPolicy.description;
+		cost.text = "Cost: $" + currentPolicy.cost;
+		cost.enabled = true;
+		if(currentPolicy.nameID != ""){
+			button.SetActive(true);
+			button.GetComponent<Button>().onClick.RemoveAllListeners();
+			button.GetComponent<Button>().onClick.AddListener(() => { PolicyManager.AddPolicy(currentPolicy); }); 
+		}
 	}
 	
 }

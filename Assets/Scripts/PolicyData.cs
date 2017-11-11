@@ -13,24 +13,31 @@ public class PolicyData{
 		Policy policy = new Policy()
 		{
 			nameID = "test",
-			guiName = "Test",
-			description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam maximus erat sed elit tristique hendrerit. Fusce dictum tortor neque, id vulputate erat tristique at. Aliquam vestibulum tincidunt odio a ultrices. Nullam id iaculis nisl. Ut placerat pharetra vestibulum. Vestibulum quis pharetra magna. Vivamus dapibus mauris quis nisi eleifend hendrerit ac at nulla. Sed et magna eget mauris vehicula finibus. Donec nec venenatis erat."
+			guiName = "Test 1",
+			description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam maximus erat sed elit tristique hendrerit. Fusce dictum tortor neque, id vulputate erat tristique at. Aliquam vestibulum tincidunt odio a ultrices. Nullam id iaculis nisl. Ut placerat pharetra vestibulum. Vestibulum quis pharetra magna. Vivamus dapibus mauris quis nisi eleifend hendrerit ac at nulla. Sed et magna eget mauris vehicula finibus. Donec nec venenatis erat.",
+			cost = 5F,
+			duration = GameManager.maxTurns
+			
 		};
 		_table.Add(policy.nameID, policy);
 		
 		Policy policy1 = new Policy()
 		{
 			nameID = "test1",
-			guiName = "Test",
-			description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam maximus erat sed elit tristique hendrerit. Fusce dictum tortor neque, id vulputate erat tristique at. Aliquam vestibulum tincidunt odio a ultrices. Nullam id iaculis nisl. Ut placerat pharetra vestibulum. Vestibulum quis pharetra magna. Vivamus dapibus mauris quis nisi eleifend hendrerit ac at nulla. Sed et magna eget mauris vehicula finibus. Donec nec venenatis erat."
+			guiName = "Test 2",
+			description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam maximus erat sed elit tristique hendrerit. Fusce dictum tortor neque, id vulputate erat tristique at. Aliquam vestibulum tincidunt odio a ultrices. Nullam id iaculis nisl. Ut placerat pharetra vestibulum. Vestibulum quis pharetra magna. Vivamus dapibus mauris quis nisi eleifend hendrerit ac at nulla. Sed et magna eget mauris vehicula finibus. Donec nec venenatis erat.",
+			cost = 5F,
+			duration = GameManager.maxTurns
 		};
 		_table.Add(policy1.nameID, policy1);
 		
 		Policy policy2 = new Policy()
 		{
 			nameID = "test2",
-			guiName = "Test",
-			description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam maximus erat sed elit tristique hendrerit. Fusce dictum tortor neque, id vulputate erat tristique at. Aliquam vestibulum tincidunt odio a ultrices. Nullam id iaculis nisl. Ut placerat pharetra vestibulum. Vestibulum quis pharetra magna. Vivamus dapibus mauris quis nisi eleifend hendrerit ac at nulla. Sed et magna eget mauris vehicula finibus. Donec nec venenatis erat."
+			guiName = "Test 3",
+			description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam maximus erat sed elit tristique hendrerit. Fusce dictum tortor neque, id vulputate erat tristique at. Aliquam vestibulum tincidunt odio a ultrices. Nullam id iaculis nisl. Ut placerat pharetra vestibulum. Vestibulum quis pharetra magna. Vivamus dapibus mauris quis nisi eleifend hendrerit ac at nulla. Sed et magna eget mauris vehicula finibus. Donec nec venenatis erat.",
+			cost = 5F,
+			duration = GameManager.maxTurns
 		};
 		_table.Add(policy2.nameID, policy2);
 		
@@ -67,5 +74,14 @@ public class Policy
 	public string nameID;
 	public string guiName;
 	public string description;
+	public Boolean purchased = false;
+	public float cost;
+	public int duration;		//How long the policy will last
+	public int counter = 0;         //Amount of turns it has been used
+
+	public void InstantEffect()
+	{
+		Debug.Log("Applying " + guiName);
+	}
 
 }

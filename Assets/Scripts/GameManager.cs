@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 	public static GameManager gameManager = null;
 	public static MainMapTooltip tooltip;
 	public static EventManager eventManager;
+	public static PolicyManager policyManager;
 	#endregion
 
 	#region Public Variables
@@ -171,6 +172,7 @@ public class GameManager : MonoBehaviour
 
 	private void EndEvent()
 	{
+		PolicyManager.ApplyPolicy();
 		State = GameState.End;
 		levelManager = GameObject.FindObjectOfType<LevelManager>() as LevelManager;
 		levelManager.LoadLevel("02b Game Report");
@@ -470,7 +472,11 @@ public class GameManager : MonoBehaviour
 
 		set
 		{
+			
 			populationEffect = value;
+			if(populationEffect < (population * -1)){
+				populationEffect = population * -1;
+			}
 		}
 	}
 
@@ -530,7 +536,6 @@ public class GameManager : MonoBehaviour
 	#region Water Need Functions
 	private void LoadWater()
 	{
-		Debug.Log("Water Loaded: " + PlayerPrefsManager.GetYear());
 		actualWaterArray = WaterData.GetItem(PlayerPrefsManager.GetYear().ToString());
 	}
 
@@ -662,13 +667,13 @@ public class GameManager : MonoBehaviour
 	private static void UpdateResources()
 	{
 		if (happinessMultiplier > 0 || happinessMultiplier < 0)
-			happiness *= happinessMultiplier;
+			Happiness *= happinessMultiplier;
 		if (moneyMultiplier > 0 || moneyMultiplier < 0)
-			money *= moneyMultiplier;
+			Money *= moneyMultiplier;
 		if (populationMultiplier > 0 || populationMultiplier < 0) 
-			population *= populationMultiplier;
+			Population *= populationMultiplier;
 		if (farmsMultiplier > 0 || farmsMultiplier < 0)
-			farms *= farmsMultiplier;
+			Farms *= farmsMultiplier;
 	}
 
 	private static void ResourceBeforeEffects()
@@ -678,17 +683,17 @@ public class GameManager : MonoBehaviour
 		if (food < 0)
 		{
 			NotEnoughFood();
-			food = 0;
+			Food = 0;
 		}
 	}
 
 	private static void ResourceAfterEffects()
 	{
 		food += farms * Difficulty.FoodProductionCoefficient() * foodMultiplier + foodEffect;
-		happiness += happinessEffect;
-		money += moneyEffect;
-		population += populationEffect;
-		farms += farmsEffect;
+		Happiness += happinessEffect;
+		Money += moneyEffect;
+		Population += populationEffect;
+		Farms += farmsEffect;
 		
 	}
 
@@ -697,7 +702,7 @@ public class GameManager : MonoBehaviour
 		Event starve = EventData.GetItem("Starvation");
 		starve.guiName = "Starvation";
 		starve.populationEffect = Mathf.RoundToInt(food / Difficulty.FoodRequriedCoefficient());
-		populationMultiplier = 1f;
+		PopulationMultiplier = 1f;
 		starve.happinessEffect = Mathf.RoundToInt(food/ Difficulty.FoodRequriedCoefficient());
 		starve.description = "Population has starved to death. \nDeath Tool: " + (starve.populationEffect * -1) + "M";
 		EventManager.AddEvent("Starvation");
@@ -707,7 +712,7 @@ public class GameManager : MonoBehaviour
 	{
 		Event starve = EventData.GetItem("Consume");
 		starve.guiName = "Consume Food";
-		food += Mathf.RoundToInt((Population * Difficulty.FoodRequriedCoefficient()) * -1);
+		Food += Mathf.RoundToInt((Population * Difficulty.FoodRequriedCoefficient()) * -1);
 		float foodConsumed;
 		if(food < 0)
 			foodConsumed = food + Mathf.RoundToInt((Population * Difficulty.FoodRequriedCoefficient()));
