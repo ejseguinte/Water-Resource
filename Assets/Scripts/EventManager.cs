@@ -15,6 +15,7 @@ public class EventManager : MonoBehaviour {
 	#region Public Variables
 	private static Queue<string> eventNames;
 	private static Stack<Event> previousEvents;
+	private float[,] realWaterData;
 	#endregion
 	// Use this for initialization
 	void Start()
@@ -30,6 +31,18 @@ public class EventManager : MonoBehaviour {
 			eventNames = new Queue<string>();
 			if(previousEvents == null)
 				previousEvents = new Stack<Event>();
+			//real water data for event predictions
+			//first index is random data
+			//rest are real world in ascending year order
+			//order is Domestic Commercial Industrial Livestock Crops GolfCourses
+			realWaterData = new float[7,6] {{370278 + UnityEngine.Random.Range(-20000f,20000f),115552 + UnityEngine.Random.Range(-7500f,7500f),74789 + UnityEngine.Random.Range(-5000f,5000f),31423 + UnityEngine.Random.Range(-3000f,3000f),2804821 + UnityEngine.Random.Range(-200000.0f,200000f),14554 + UnityEngine.Random.Range(-2000f,2000f)},
+				{315402,144864,110795,38164,3299029,11248},
+				{378807,95635,60322,38164,3085925,12630},
+				{357603,128765,80007,38164,2996314,13180},
+				{375766,108255,70331,38164,2832779,13997},
+				{417207,98407,65836,18354,2482553,16382},
+				{376887,117391,61447,17529,2132327,19888}};
+
 		}
 		
 		
@@ -96,25 +109,38 @@ public class EventManager : MonoBehaviour {
 
 	public void GetEvents()
 	{
-		float domBadProb = (GameManager.GetItem ("Domestic").waterNeeded - GameManager.GetItem ("Domestic").waterGiven) / GameManager.GetItem ("Domestic").waterNeeded;
-		float domGoodProb = (GameManager.GetItem ("Domestic").waterGiven - GameManager.GetItem ("Domestic").waterNeeded) / GameManager.GetItem ("Domestic").waterNeeded;
-		Debug.Log (domBadProb);
-		Debug.Log (domGoodProb);
+		//determine the year
+		int year = PlayerPrefsManager.GetYear();
 
-		float cropBadProb = (GameManager.GetItem ("Crops").waterNeeded - GameManager.GetItem ("Crops").waterGiven) / GameManager.GetItem ("Crops").waterNeeded;
-		float cropGoodProb = (GameManager.GetItem ("Crops").waterGiven - GameManager.GetItem ("Crops").waterNeeded) / GameManager.GetItem ("Crops").waterNeeded;
+		float domBadProb = (realWaterData[year,0] - GameManager.GetItem ("Domestic").waterGiven) / realWaterData[year,0];
+		float domGoodProb = (GameManager.GetItem ("Domestic").waterGiven - realWaterData[year,0]) / realWaterData[year,0];
+		Debug.Log(domBadProb);
+		Debug.Log(domGoodProb);
 
-		float livestockBadProb = (GameManager.GetItem ("Livestock").waterNeeded - GameManager.GetItem ("Livestock").waterGiven) / GameManager.GetItem ("Livestock").waterNeeded;
-		float livestockGoodProb = (GameManager.GetItem ("Livestock").waterGiven - GameManager.GetItem ("Livestock").waterNeeded) / GameManager.GetItem ("Livestock").waterNeeded;
+		float comBadProb = (realWaterData[year,1] - GameManager.GetItem ("Commercial").waterGiven) / realWaterData[year,1];
+		float comGoodProb = (GameManager.GetItem ("Commercial").waterGiven - realWaterData[year,1]) / realWaterData[year,1];
+		Debug.Log(comBadProb);
+		Debug.Log(comGoodProb);
 
-		float comBadProb = (GameManager.GetItem ("Commercial").waterNeeded - GameManager.GetItem ("Commercial").waterGiven) / GameManager.GetItem ("Commercial").waterNeeded;
-		float comGoodProb = (GameManager.GetItem ("Commercial").waterGiven - GameManager.GetItem ("Commercial").waterNeeded) / GameManager.GetItem ("Commercial").waterNeeded;
+		float indBadProb = (realWaterData[year,2] - GameManager.GetItem ("Industrial").waterGiven) / realWaterData[year,2];
+		float indGoodProb = (GameManager.GetItem ("Industrial").waterGiven - realWaterData[year,2]) / realWaterData[year,2];
+		Debug.Log(indBadProb);
+		Debug.Log(indGoodProb);
 
-		float indBadProb = (GameManager.GetItem ("Industrial").waterNeeded - GameManager.GetItem ("Industrial").waterGiven) / GameManager.GetItem ("Industrial").waterNeeded;
-		float indGoodProb = (GameManager.GetItem ("Industrial").waterGiven - GameManager.GetItem ("Industrial").waterNeeded) / GameManager.GetItem ("Industrial").waterNeeded;
+		float livestockBadProb = (realWaterData[year,3] - GameManager.GetItem ("Livestock").waterGiven) / realWaterData[year,3];
+		float livestockGoodProb = (GameManager.GetItem ("Livestock").waterGiven - realWaterData[year,3]) / realWaterData[year,3];
+		Debug.Log(livestockBadProb);
+		Debug.Log(livestockGoodProb);
 
-		float golfBadProb = (GameManager.GetItem ("Golf Courses").waterNeeded - GameManager.GetItem ("Golf Courses").waterGiven) / GameManager.GetItem ("Golf Courses").waterNeeded;
-		float golfGoodProb = (GameManager.GetItem ("Golf Courses").waterGiven - GameManager.GetItem ("Golf Courses").waterNeeded) / GameManager.GetItem ("Golf Courses").waterNeeded;
+		float cropBadProb = (realWaterData[year,4] - GameManager.GetItem ("Crops").waterGiven) / realWaterData[year,4];
+		float cropGoodProb = (GameManager.GetItem ("Crops").waterGiven - realWaterData[year,4]) / realWaterData[year,4];
+		Debug.Log(cropBadProb);
+		Debug.Log(cropGoodProb);
+
+		float golfBadProb = (realWaterData[year,5] - GameManager.GetItem ("Golf Courses").waterGiven) / realWaterData[year,5];
+		float golfGoodProb = (GameManager.GetItem ("Golf Courses").waterGiven - realWaterData[year,5]) / realWaterData[year,5];
+		Debug.Log(golfBadProb);
+		Debug.Log(golfGoodProb);
 
 		float diceRoll;
 
