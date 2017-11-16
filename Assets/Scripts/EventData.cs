@@ -57,7 +57,7 @@ public class EventData{
 			happinessMultiplier = 0,
 			foodEffect = 0,
 			foodMultiplier = 0,
-			populationEffect = 5000,
+			populationEffect = .05f,
 			populationMultiplier = 0
 
 		};
@@ -75,7 +75,7 @@ public class EventData{
 			happinessMultiplier = 0,
 			foodEffect = 0,
 			foodMultiplier = 0,
-			populationEffect = -1000,
+			populationEffect = -0.01f,
 			populationMultiplier = 0
 
 		};
@@ -93,7 +93,7 @@ public class EventData{
 			happinessMultiplier = 0,
 			foodEffect = 0,
 			foodMultiplier = 1.2f,
-			populationEffect = 10000,
+			populationEffect = 0.5f,
 			populationMultiplier = 0
 
 		};
@@ -111,7 +111,7 @@ public class EventData{
 			happinessMultiplier = 0,
 			foodEffect = -250,
 			foodMultiplier = 0,
-			populationEffect = -1000,
+			populationEffect = -1f,
 			populationMultiplier = 0
 
 		};
@@ -129,7 +129,7 @@ public class EventData{
 			happinessMultiplier = 0,
 			foodEffect = 0,
 			foodMultiplier = 0,
-			populationEffect = 1000,
+			populationEffect = 0.25f,
 			populationMultiplier = 0
 
 		};
@@ -147,9 +147,9 @@ public class EventData{
 			happinessMultiplier = 0,
 			foodEffect = 0,
 			foodMultiplier = 0,
-			populationEffect = 0,
+			populationEffect = -0.5f,
 			//TODO : This currently reduces 10% of the population growth on medium difficulty according to EJ
-			populationMultiplier = -.3f
+			populationMultiplier = 0
 
 		};
 
@@ -166,7 +166,7 @@ public class EventData{
 			happinessMultiplier = 0,
 			foodEffect = 0,
 			foodMultiplier = 0,
-			populationEffect = 50,
+			populationEffect = 0.1f,
 			populationMultiplier = 0
 
 		};
@@ -184,7 +184,7 @@ public class EventData{
 			happinessMultiplier = 0,
 			foodEffect = 0,
 			foodMultiplier = 0,
-			populationEffect = -2000,
+			populationEffect = -0.2f,
 			populationMultiplier = 0
 
 		};
@@ -202,7 +202,7 @@ public class EventData{
 			happinessMultiplier = 0,
 			foodEffect = 0,
 			foodMultiplier = 0,
-			populationEffect = 750,
+			populationEffect = 0.75f,
 			populationMultiplier = 0
 
 		};
@@ -220,7 +220,7 @@ public class EventData{
 			happinessMultiplier = 0,
 			foodEffect = 0,
 			foodMultiplier = 0,
-			populationEffect = -500,
+			populationEffect = -0.75f,
 			populationMultiplier = 0
 		};
 
@@ -237,7 +237,7 @@ public class EventData{
 			happinessMultiplier = 0,
 			foodEffect = 250,
 			foodMultiplier = 0,
-			populationEffect = 1000,
+			populationEffect = 0.1f,
 			populationMultiplier = 0
 		};
 
@@ -254,7 +254,7 @@ public class EventData{
 			happinessMultiplier = 0,
 			foodEffect = -500,
 			foodMultiplier = 0,
-			populationEffect = -200,
+			populationEffect = -1f,
 			populationMultiplier = 0
 		};
 
