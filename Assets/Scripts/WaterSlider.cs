@@ -71,11 +71,11 @@ public class WaterSlider : MonoBehaviour {
 		{
 			//Seperate Text for the Market 
 			float money = Mathf.RoundToInt(GameManager.Money * effect4.value);
-			waterDescription.text = "Max Sellable Water: "  + water.waterNeeded.ToString() + "AF\n" + "Money gained: " + money + "M";
+			waterDescription.text = "Max Sellable Water: "  + water.waterNeeded.ToString() + "AF\n" + "Money gained: " + money + "AF";
 		}	
 		else
 		{
-			waterDescription.text = "Minimum water needed: " + water.waterRecommended.ToString() + "AF\n" + "Total water needed: "  + water.waterNeeded.ToString() + "M";
+			waterDescription.text = "Minimum water needed: " + water.waterRecommended.ToString() + "AF\n" + "Total water needed: "  + water.waterNeeded.ToString() + "AF";
 		}
 		
 		offset = water.waterRecommended / water.waterNeeded;
@@ -104,7 +104,7 @@ public class WaterSlider : MonoBehaviour {
 		{
 			//Seperate Text for the Market 
 			float money = Mathf.RoundToInt(GameManager.Money * effect4.value);
-			waterDescription.text = "Max Sellable Water: "  + water.waterNeeded.ToString() + "M\n" + "Money gained: " + money + "M";
+			waterDescription.text = "Max Sellable Water: "  + water.waterNeeded.ToString() + "AF\n" + "Money gained: " + money + "M";
 		}
 	}
 
