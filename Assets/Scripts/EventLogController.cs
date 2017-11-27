@@ -15,7 +15,7 @@ public class EventLogController : MonoBehaviour {
 	void Start () {
 		events = EventManager.GetPreviousEvents();
 		float y = 0;
-		parent.transform.position = new Vector2(0, 0);
+		//parent.transform.position = new Vector2(0, 0);
 		if (events != null)
 		{
 			foreach (Event name in events)
@@ -41,7 +41,6 @@ public class EventLogController : MonoBehaviour {
 		{
 			parent.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, parent.GetComponent<VerticalLayoutGroup>().preferredHeight);
 		}
-		parent.GetComponentInParent<RectTransform>().anchorMax = new Vector2(1f, 1f);
 	}
 
 	public void DisplayEvent()
