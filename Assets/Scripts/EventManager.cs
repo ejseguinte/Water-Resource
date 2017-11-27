@@ -104,7 +104,26 @@ public class EventManager : MonoBehaviour {
 
 	public static Event[] GetPreviousEvents()
 	{
-		return previousEvents.ToArray();
+		if(previousEvents == null){
+			previousEvents = new Stack<Event>();
+			Event test = new Event()
+			{	
+				//This Event is set in GameManager
+				nameID = "TestCropsNegative",
+				guiName = "(TEST)Tragic Crop Fires Sweep Northern California(TEST)",
+				description = "Several fires in the Central Valley have decimated large swaths of farmland. Many crops were dry and dying due to a lack of water. Farmers are furious at state officials.",
+				turn = 0,
+				happinessEffect = -10,
+				happinessMultiplier = 0,
+				foodEffect = -500,
+				foodMultiplier = 0,
+				populationEffect = -1f,
+				populationMultiplier = 0
+			};
+			previousEvents.Push(test);
+		}
+			return previousEvents.ToArray();
+		
 	}
 
 	public void GetEvents()

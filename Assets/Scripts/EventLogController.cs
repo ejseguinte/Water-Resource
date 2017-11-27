@@ -15,7 +15,7 @@ public class EventLogController : MonoBehaviour {
 	void Start () {
 		events = EventManager.GetPreviousEvents();
 		float y = 0;
-		parent.transform.position = new Vector2(0, 0);
+		//parent.transform.position = new Vector2(0, 0);
 		if (events != null)
 		{
 			foreach (Event name in events)
@@ -23,7 +23,7 @@ public class EventLogController : MonoBehaviour {
 				GameObject text = Instantiate(textbox) as GameObject;
 				Text description = text.GetComponentInChildren<Text>();
 				text.GetComponent<EventHolder>().eventName = name;
-				description.text = name.guiName + "\n Turn: " + name.turn;
+				description.text = name.guiName + "\n\n Turn: " + name.turn;
 				text.transform.SetParent(parent.transform);
 				text.name = name.nameID;
 				y = y + text.transform.lossyScale.y;
