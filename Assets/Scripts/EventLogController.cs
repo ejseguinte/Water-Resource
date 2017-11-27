@@ -23,7 +23,7 @@ public class EventLogController : MonoBehaviour {
 				GameObject text = Instantiate(textbox) as GameObject;
 				Text description = text.GetComponentInChildren<Text>();
 				text.GetComponent<EventHolder>().eventName = name;
-				description.text = name.guiName + "\n Turn: " + name.turn;
+				description.text = name.guiName + "\n\n Turn: " + name.turn;
 				text.transform.SetParent(parent.transform);
 				text.name = name.nameID;
 				y = y + text.transform.lossyScale.y;
@@ -41,6 +41,7 @@ public class EventLogController : MonoBehaviour {
 		{
 			parent.GetComponent<RectTransform>().SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, parent.GetComponent<VerticalLayoutGroup>().preferredHeight);
 		}
+		parent.GetComponentInParent<RectTransform>().anchorMax = new Vector2(1f, 1f);
 	}
 
 	public void DisplayEvent()
