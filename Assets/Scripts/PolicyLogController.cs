@@ -74,7 +74,7 @@ public class PolicyLogController : MonoBehaviour {
 		currentPolicy = PolicyData.GetItem(EventSystem.current.currentSelectedGameObject.name);
 		title.text = currentPolicy.guiName;
 		body.text = currentPolicy.description;
-		cost.text = "Cost: $" + currentPolicy.cost;
+		cost.text = "Cost: $" + currentPolicy.cost + " M";
 		cost.enabled = true;
 		if(currentPolicy.nameID != ""){
 			button.SetActive(true);
