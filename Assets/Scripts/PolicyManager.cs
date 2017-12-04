@@ -65,18 +65,28 @@ public class PolicyManager : MonoBehaviour {
 
 	public static void ApplyPolicy()
 	{
+		Queue<Policy> temp = new Queue<Policy>();
 		if (policyNames != null && policyNames.Count() > 0){
 			foreach (Policy current in policyNames)
 			{
-				if (current.counter >= current.duration - 1)
+				if (current.counter > current.duration - 1)
 				{
-					PolicyManager.RemovePolicy(current);
+					temp.Enqueue(current);
 				}
 				else
 				{
 					current.counter += 1;
 					current.InstantEffect();
+					Debug.Log(current.guiName + " has been activated. Counter: " + current.counter + "/" + current.duration);
 				}
+			}
+		}
+		if (temp.Count > 0)
+		{
+			foreach (Policy current in temp)
+			{
+				current.ResetPolicy();
+				PolicyManager.RemovePolicy(current);
 			}
 		}
 	}

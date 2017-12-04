@@ -65,8 +65,8 @@ public class WaterSlider : MonoBehaviour {
 			GameManager.ExpendedWater = GameManager.ExpendedWater - water.waterGiven;
 		}
 		GameManager.RemainingWater = GameManager.TotalWater - GameManager.ExpendedWater;
-		
-		maxWater.text = water.waterNeeded.ToString() + "AF";
+		float temp = (GroupData.GetItem(LevelManager.groupAttribute).waterNeed + 1) * 100;
+		maxWater.text = temp + "%";
 		if (group.recommendedWater <= 0)
 		{
 			//Seperate Text for the Market 

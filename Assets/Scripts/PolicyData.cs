@@ -119,5 +119,10 @@ public class Policy
 		GameManager.PopulationMultiplier += populationMultiplier;
 		GameManager.Money += moneyEffect;
 	}
+	
+	public void ResetPolicy(){
+		counter = 0;
+		purchased = false;
+	}
 
 }
