@@ -31,11 +31,12 @@ public class EventManager : MonoBehaviour {
 			eventNames = new Queue<string>();
 			if(previousEvents == null)
 				previousEvents = new Stack<Event>();
-			//real water data for event predictions
-			//first index is random data
-			//rest are real world in ascending year order
-			//order is Domestic Commercial Industrial Livestock Crops GolfCourses
-			realWaterData = new float[7,6] {{370278 + UnityEngine.Random.Range(-20000f,20000f),115552 + UnityEngine.Random.Range(-7500f,7500f),74789 + UnityEngine.Random.Range(-5000f,5000f),31423 + UnityEngine.Random.Range(-3000f,3000f),2804821 + UnityEngine.Random.Range(-200000.0f,200000f),14554 + UnityEngine.Random.Range(-2000f,2000f)},
+            //real water data for event predictions
+            //first index is random data
+            //rest are real world in ascending year order
+            //order is Domestic Commercial Industrial Livestock Crops GolfCourses
+            //SOURCE: https://waterdata.usgs.gov/ca/nwis/water_use/
+            realWaterData = new float[7,6] {{370278 + UnityEngine.Random.Range(-20000f,20000f),115552 + UnityEngine.Random.Range(-7500f,7500f),74789 + UnityEngine.Random.Range(-5000f,5000f),31423 + UnityEngine.Random.Range(-3000f,3000f),2804821 + UnityEngine.Random.Range(-200000.0f,200000f),14554 + UnityEngine.Random.Range(-2000f,2000f)},
 				{315402,144864,110795,38164,3299029,11248},
 				{378807,95635,60322,38164,3085925,12630},
 				{357603,128765,80007,38164,2996314,13180},

@@ -612,15 +612,15 @@ public class GameManager : MonoBehaviour
 		{
 			if (!CheckWaterAllocation(key))
 			{
-				Debug.Log("Not all Groups have been Allocated Water");
-				tooltip.CreateWarning("Not all Groups have been Allocated Water");
+				Debug.Log("Allocate for all groups.");
+				tooltip.CreateWarning("Allocate for all groups.");
 				return false;
 			}
 		}
 		if (remainingWater < 0)
 		{
-			Debug.Log("Too much water has been allocated.");
-			tooltip.CreateWarning("Too much water has been allocated.");
+			Debug.Log("Water over-allocated.");
+			tooltip.CreateWarning("Water over-allocated.");
 			return false;
 		}
 		return true;
