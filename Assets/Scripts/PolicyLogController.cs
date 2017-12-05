@@ -15,6 +15,7 @@ public class PolicyLogController : MonoBehaviour {
 	public GameObject button;
 	public Text cost;
 	public Policy currentPolicy;
+	public Text counter;
 
 	private Array policies;
 	// Use this for initialization
@@ -29,6 +30,7 @@ public class PolicyLogController : MonoBehaviour {
 		}
 		if(cost.text == "Cost: $99999999"){
 			cost.enabled = false;
+			counter.enabled = false;
 		}
 		if (policies != null)
 		{
@@ -61,10 +63,18 @@ public class PolicyLogController : MonoBehaviour {
 
 		if (currentPolicy.purchased == false){
 			button.GetComponentInChildren<Text>().text = "Purchase";
+			counter.text = "Duration: " + currentPolicy.duration;
 		}else if(currentPolicy.purchased == true && currentPolicy.counter == 0){
 			button.GetComponentInChildren<Text>().text = "Sell";
 		}else{
 			button.SetActive(false);
+			int remaining = currentPolicy.duration - currentPolicy.counter;
+			counter.text = remaining + " Turns Left";
+			if(remaining == 0){
+				counter.text = "Not Active";
+			}else if(remaining == 1){
+				counter.text = remaining + " Turn Left";
+			}
 		}
 		
 	}
@@ -75,7 +85,9 @@ public class PolicyLogController : MonoBehaviour {
 		title.text = currentPolicy.guiName;
 		body.text = currentPolicy.description;
 		cost.text = "Cost: $" + currentPolicy.cost + " M";
+		counter.text = "Duration: " + currentPolicy.duration;
 		cost.enabled = true;
+		counter.enabled = true;
 		if(currentPolicy.nameID != ""){
 			button.SetActive(true);
 			button.GetComponent<Button>().onClick.RemoveAllListeners();

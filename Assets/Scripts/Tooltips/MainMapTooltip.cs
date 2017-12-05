@@ -363,7 +363,7 @@ public class MainMapTooltip : MonoBehaviour {
 	 public void ActivateTooltipVisibility(){
 		 Color textColor = thisText.color;
 		 thisText.color = new Color(textColor.r,textColor.g,textColor.b,1f);
-		 bgImageSource.color = new Color(bgImageSource.color.r,bgImageSource.color.g,bgImageSource.color.b,0.8f);
+		 bgImageSource.color = new Color(bgImageSource.color.r,bgImageSource.color.g,bgImageSource.color.b,.95f);
 	 }
 	 
 	 //used to hide the tooltip so that it can be made visible one update call after it has been built (to avoid flickers)

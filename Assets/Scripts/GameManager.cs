@@ -87,8 +87,9 @@ public class GameManager : MonoBehaviour
 
 		if (newScene.buildIndex == menuScreenBuildIndex) //could compare Scene.name instead
 		{
-			gameManager = null;
+			
 			Destroy(gameObject); //change as appropriate
+			gameManager = null;
 		}
 	}
 
