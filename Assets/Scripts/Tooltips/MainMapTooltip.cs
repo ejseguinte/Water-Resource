@@ -60,6 +60,11 @@ public class MainMapTooltip : MonoBehaviour {
 	 bool isEvent;
 
 	// Use this for initialization
+	
+	void onEnabled(){
+		currentYScaleFactor = Screen.height/this.transform.root.GetComponent<CanvasScaler>().referenceResolution.y;
+		currentXScaleFactor = Screen.width/this.transform.root.GetComponent<CanvasScaler>().referenceResolution.x;
+	}
 	void Start()
 	{
 
